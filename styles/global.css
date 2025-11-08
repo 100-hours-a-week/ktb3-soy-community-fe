@@ -8,18 +8,16 @@ body {
 }
 
 header {
+  position: relative;
   background-color: #F4F5F7;
   border-bottom: 1px solid #000000;
   text-align: center;
-  
   padding: 20px 0;
 }
 
-a.back-arrow {
-  position: fixed;
-  top: 20px;
-  left: 400px;
-  display: inline-block;
+.back-arrow {
+  float: left;
+  left:10px;
   text-decoration: none;
   color: #333;
   border-left: 5px solid;
@@ -27,7 +25,6 @@ a.back-arrow {
   transform: rotate(45deg);
   width: 20px;
   height: 20px;
-  transition: all 0.2s ease;
 }
 
 .title{
@@ -78,4 +75,3 @@ a {
   color: #333;
   text-decoration: none;
 }
-

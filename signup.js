@@ -1,28 +1,65 @@
+const userData = {};
+function convertFileToDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      resolve(reader.result);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function changePreview(newImageUrl){
+  const imagePreview = document.getElementById("userProfileImgPreview");
+  imagePreview.src = newImageUrl;
+}
+
+const imageInput = document.getElementById("userProfileImg");
+imageInput.addEventListener("change", handleProfileImageChange);
+
+async function handleProfileImageChange(event) {
+  try {
+    const file = event.target.files[0];
+    const imageUrl = await convertFileToDataURL(file);
+    userData.userProfileImgUrl = imageUrl;
+    changePreview(imageUrl);
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+const signUpBtn = document.getElementById("btn-signup");
+signUpBtn.addEventListener("click", postSignUpData);
+
+function postSignUpData(){
+    setSignUpData();
+    if(userData.state == "fail") return;
+    postServer();
+}
+
 function isNotValidPassword(userPassword, userPasswordCheck){
     return userPassword == userPasswordCheck;
 }
 
+function setSignUpData(){
 
-function getSignUpData(){
-   const userEmail = document.getElementById("userEmail").value;
-   const userPassword = document.getElementById("userPassword").value;
-   const userPasswordCheck = document.getElementById("userPasswordCheck").value;
+  const userEmail = document.getElementById("userEmail").value;
+  const userPassword = document.getElementById("userPassword").value;
+  const userPasswordCheck = document.getElementById("userPasswordCheck").value;
+  const userNickname = document.getElementById("userNickname").value;
+  
+  if(!isNotValidPassword(userPassword, userPasswordCheck)){
+    userData.state = "fail";
+    return;
+  }
 
-   if(!isNotValidPassword(userPassword, userPasswordCheck)){
-    return null;
-   }
-
-   const userNickname = document.getElementById("userNickname").value;
-   
-   return {
-    userEmail, 
-    userPassword, 
-    userNickname
-   };
+  userData.userEmail = userEmail;
+  userData.userPassword = userPassword;
+  userData.userNickname = userNickname;
 }
 
 function fetchData(url, options){
-
     fetch(url, options)
     .then(response => {
       if (!response.ok) {
@@ -36,15 +73,12 @@ function fetchData(url, options){
     .catch(error => {
       console.error('fetch 작업 중 문제가 발생했습니다:', error);
     });
-
 }
 
-function postServer(data){
+function postServer(){
     event.preventDefault();
     const url = "http://localhost:8080/api/users";
-    const jsonData = JSON.stringify(data);
-
-    console.log(jsonData); 
+    const jsonData = JSON.stringify(userData);
 
     const options = { method: 'POST',
         headers: {
@@ -55,14 +89,3 @@ function postServer(data){
     };
     fetchData(url, options);
 }
-
-
-function signup(){
-    const signUpData = getSignUpData();
-    console.log(signUpData);
-    if(!signUpData) return;
-    postServer(signUpData);
-}
-
-const signUpBtn = document.getElementById("btn-signup");
-signUpBtn.addEventListener('click', signup);
