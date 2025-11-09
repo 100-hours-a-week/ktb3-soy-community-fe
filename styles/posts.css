@@ -18,7 +18,7 @@
   line-height: 130%;
   text-align: center;
   color: #000;
-  margin: 0; /* 불필요한 기본 여백 제거 */
+  margin: 0;
 }
 
 .post-header button {
@@ -52,7 +52,7 @@
 
 .post-meta {
   display: flex;
-  justify-content: space-between; /* 좌우 끝으로 배치 */
+  justify-content: space-between; 
   align-items: center;
   margin-bottom: 20px;
 }
@@ -71,3 +71,26 @@
   object-fit: cover;  
 }
 
+.float-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #ACA0EB;
+  color: white;
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+  display: none; /* 기본 숨김 */
+  z-index: 999;
+}
+
+.float-button:hover{
+  background: #8d7fe0;
+}
+
+.float-button.show {
+  display: block; /* 스크롤 시 나타남 */
+}
