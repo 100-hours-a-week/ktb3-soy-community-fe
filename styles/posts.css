@@ -50,16 +50,24 @@
   margin: 0 0 8px 0;
 }
 
-.post-card meta {
-  font-size: 13px;
-  color: #555;
+.post-meta {
   display: flex;
-  gap: 8px;
-  margin-bottom: 6px;
+  justify-content: space-between; /* 좌우 끝으로 배치 */
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-
-.post-card author {
-  font-size: 14px;
-  color: #333;
+.author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
 }
+
+.profile-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%; 
+  object-fit: cover;  
+}
+
