@@ -1,7 +1,11 @@
 import {Login} from "../components/Login.js";
+import {Posts} from "../components/Posts.js";
+import { PostsCreate } from "../components/PostsCreate.js";
 
 const routes = {
-    "/": Login
+    "/": Login,
+    "/posts": Posts,
+    "/posts/create": PostsCreate
 };
 
 export function navigateTo(routeName){

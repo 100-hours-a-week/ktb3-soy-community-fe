@@ -1,3 +1,5 @@
+import { navigateTo } from "../router/router.js";
+
 const src_default_user_profile = "../images/default_user_profile.png";
 const getPostsURL = "http://localhost:8080/api/posts?";
 const default_size = 20;
@@ -19,6 +21,55 @@ function getCount(count){
   else if(count >= 1000) return "1K";
   else return count;
 }
+
+
+export function Posts(){
+    const section = document.createElement("section");
+    section.className = "post";
+    section.innerHTML = `
+        <div class="post-header">
+        <p>
+          안녕하세요.<br>
+          아무말 대잔치 <strong>게시판</strong>입니다.
+        </p>
+        <button class="button" id="post-create-btn"> 게시글 작성 </button>
+        </div>
+    
+        <div id="post-list"></div>
+
+        <button class="float-button">+</button>
+    `;
+
+    fetchPosts();
+
+    window.addEventListener('scroll', () => {
+        if (noMorePage) return;
+
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            fetchPosts();
+        }
+
+        const writeBtn = document.querySelector(".button");
+        const floatBtn = document.querySelector(".float-button");
+
+        const rect = writeBtn.getBoundingClientRect();
+        
+        if (rect.bottom < 0) {
+            floatBtn.classList.add("show");
+        } else {
+            floatBtn.classList.remove("show");
+        }
+        });
+
+    
+    section.querySelector("#post-create-btn").addEventListener("click", 
+      () => navigateTo("/posts/create")
+    );
+
+    
+    return section;
+}
+
 
 function renderPosts(posts){
     posts.forEach(post => {
@@ -47,8 +98,6 @@ function renderPosts(posts){
     });
 }
 
-
-
 function fetchPosts(){
   fetch(getPostsURL + `page=${currentPage}&size=${default_size}`).then(
     response => response.json()
@@ -63,26 +112,3 @@ function fetchPosts(){
     err => console.error("게시글 목록 조회 실패", err));
   currentPage++;
 }
-
-fetchPosts();
-
-
-window.addEventListener('scroll', () => {
-  if (noMorePage) return;
-
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-    fetchPosts();
-  }
-
-  const writeBtn = document.querySelector(".button");
-  const floatBtn = document.querySelector(".float-button");
-
-  const rect = writeBtn.getBoundingClientRect();
-  
-  if (rect.bottom < 0) {
-    floatBtn.classList.add("show");
-  } else {
-    floatBtn.classList.remove("show");
-  }
-});
-
