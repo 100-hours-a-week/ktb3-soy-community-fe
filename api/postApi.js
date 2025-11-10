@@ -18,17 +18,15 @@ export async function createPost(postData, userId){
     }
 }
 
-export function fetchPosts(){
-  fetch(getPostsURL + `page=${currentPage}&size=${default_size}`).then(
-    response => response.json()
-  ).then(
-    data => {
-      renderPosts(data.postItemResponseList);
-      if (data.pagingMeta.pageSize === 0){
-        noMorePage = true;
-      }
-    }
-  ).catch(
-    err => console.error("게시글 목록 조회 실패", err));
-  currentPage++;
+export async function getPosts(currentPage, pageSize){
+  const getPostsURL = "http://localhost:8080/api/posts?";
+  const url = getPostsURL + `page=${currentPage}&size=${pageSize}`;
+
+  try{
+    const response = await fetch(url);
+    if (!response.ok) console.log("게시글 목록 조회 실패");
+    return response.json();
+  } catch{
+    console.error("게시글 목록 조회 실패", err);
+  }
 }
