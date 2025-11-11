@@ -2,6 +2,7 @@ import {Login} from "../components/Login.js";
 import {Posts} from "../components/posts/Posts.js";
 import { PostsCreate } from "../components/posts/PostsCreate.js";
 import {PostDetail} from "../components/posts/PostDetail.js";
+import { PostEdit } from "../components/posts/PostEdit.js";
 import { CommentsSection } from "../components/comments/CommentsSection.js";
 
 const app = document.getElementById("app");
@@ -10,24 +11,38 @@ const routes = {
   "/": [Login],
   "/posts": [Posts],
   "/posts/create": [PostsCreate],
-  "/posts/:id": [PostDetail, CommentsSection]
+  "/posts/:param1": [PostDetail, CommentsSection],
+  "/posts/:param1/edit": [PostEdit]
 };
+
+function toParamPath(path) {
+  if (path === "/") return "/";
+  let letters = path.split("/");
+  let paramNum = 1;
+
+  for (let i = 0; i < letters.length; i ++){
+    const letter = letters[i];
+    if (/^\d+$/.test(letter)){
+      letters[i] = `:param${paramNum}`;
+      paramNum++;
+    }
+  }
+  return letters.join("/");
+}
+
 
 export function router(){
   const path = window.location.pathname;
+  const pathReg = toParamPath(path);
+  console.log(pathReg);
 
   /*
     routes 맵을 순회하면서 패턴이 일치하는 컴포넌트를 확인 
     파라미터를 포함하는 경우 (":") 앞부분을 띄어서 일치하는지 확인했음 
   */
   const matched = Object.keys(routes).find( 
-    route => {
-      if (route.includes(":")){
-        const base = route.split("/:")[0]
-        return path.startsWith(base);
-      }
-      return route === path;
-    }); 
+    route => {return route === pathReg;
+  }); 
 
   app.innerHTML = ""; // 화면 지우기 
 
