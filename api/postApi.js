@@ -32,12 +32,34 @@ export async function getPosts(currentPage, pageSize){
 
 export async function getPostDetail(postId){
   const getPostDetailUrl = `http://localhost:8080/api/posts/${postId}`;
-
+  console.log(getPostDetailUrl);
   try{
     const response = await fetch(getPostDetailUrl);
     if (!response.ok) console.log("게시글 상세 조회 실패");
     return await response.json();
   } catch{
     console.error("게시글 상세 조회 실패", err);
+  }
+}
+
+export async function editPost(postData, postId, userId){
+  const editPostUrl = `http://localhost:8080/api/posts/${postId}?userId=${userId}`;
+  console.log(editPostUrl);
+
+  try{
+      const response = await fetch(editPostUrl, {
+                method: "PATCH", 
+                headers: {
+                  "Header": "application/json",
+                  "Content-Type": "application/json"},
+                body: JSON.stringify(postData)});
+
+      if (!response.ok) alert("게시글 수정 실패");
+  
+      const data = await response.json();
+      return true;
+  } catch(error) {
+    console.log("게시글 수정 에러" + error);
+    return false
   }
 }

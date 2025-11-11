@@ -16,32 +16,35 @@ const routes = {
 };
 
 function toParamPath(path) {
-  if (path === "/") return "/";
+  if (path === "/") return { pattern: "/", params: [] };
   let letters = path.split("/");
   let paramNum = 1;
+  const params = [];
 
   for (let i = 0; i < letters.length; i ++){
     const letter = letters[i];
     if (/^\d+$/.test(letter)){
+      params.push(letter);
       letters[i] = `:param${paramNum}`;
       paramNum++;
     }
   }
-  return letters.join("/");
+  const pattern = letters.join("/");
+  return {pattern, params};
 }
 
 
 export function router(){
   const path = window.location.pathname;
-  const pathReg = toParamPath(path);
-  console.log(pathReg);
+  const {pattern, params} = toParamPath(path);
+  console.log(pattern, params);
 
   /*
     routes 맵을 순회하면서 패턴이 일치하는 컴포넌트를 확인 
     파라미터를 포함하는 경우 (":") 앞부분을 띄어서 일치하는지 확인했음 
   */
   const matched = Object.keys(routes).find( 
-    route => {return route === pathReg;
+    route => {return route === pattern;
   }); 
 
   app.innerHTML = ""; // 화면 지우기 
@@ -52,15 +55,15 @@ export function router(){
   }
 
   const components = routes[matched];
-  const param = path.split("/").pop();
 
   /*
    보여줄 컴포넌트들 하나씩 순회하면서 파라미터 값 찾고 반환 
    app에 자식으로 추가해줌 
   */
-
   components.forEach(component => {
-    const elem = matched.includes(":") ? component(param) : component();
+    const elem = params.length > 0 ? 
+      component(...params)
+      : component();
     app.appendChild(elem);
   });
 }

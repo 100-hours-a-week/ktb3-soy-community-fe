@@ -31,7 +31,7 @@ export function PostDetail(postId){
         `;
     
         const btnPostEdit = article.querySelector("#btn-post-edit");
-        btnPostEdit.addEventListener("click", navigateTo(`/posts/${postId}/edit`));
+        btnPostEdit.addEventListener("click", () => navigateTo(`/posts/${postId}/edit`));
     });
     return article;
 }
