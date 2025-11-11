@@ -6,7 +6,7 @@ const src_default_user_profile = "../images/default_user_profile.png";
 const default_size = 20;
 let currentPage = 0;
 
-export function Posts(posts){
+export function Posts(){
     const section = document.createElement("section");
     section.className = "post";
     section.innerHTML = 

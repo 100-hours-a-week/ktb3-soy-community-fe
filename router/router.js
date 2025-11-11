@@ -2,7 +2,7 @@ import {Login} from "../components/Login.js";
 import {Posts} from "../components/Posts.js";
 import { PostsCreate } from "../components/PostsCreate.js";
 import {PostDetail} from "../components/PostDetail.js";
-
+import { CommentsSection } from "../components/comments/CommentsSection.js";
 
 export function router() {
   const path = window.location.pathname;
@@ -10,18 +10,20 @@ export function router() {
   app.innerHTML = '';
 
   const matchedRoute = matchRoute(path);
-  const component = matchedRoute.component;
+  const components = matchedRoute.component;
   const param = matchedRoute.param;
 
-  app.appendChild(component(param));
+  components.forEach(component => {
+    app.appendChild(component(param));
+  });
 }
 
 
 const routes = [
-  { path: /^\/$/, component: Login },
-  { path: /^\/posts$/, component: Posts },
-  { path: /^\/posts\/create$/, component: PostsCreate },
-  { path: /^\/posts\/([^/]+)$/, component: PostDetail }, // ← :id 패턴 대응
+  { path: /^\/$/, component: [Login] },
+  { path: /^\/posts$/, component: [Posts] },
+  { path: /^\/posts\/create$/, component: [PostsCreate] },
+  { path: /^\/posts\/([^/]+)$/, component: [PostDetail, CommentsSection] }, // ← :id 패턴 대응
 ];
 
 export function matchRoute(path) {
