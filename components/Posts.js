@@ -5,9 +5,6 @@ import { navigateTo } from "../router/router.js";
 const src_default_user_profile = "../images/default_user_profile.png";
 const default_size = 20;
 let currentPage = 0;
-let noMorePage = false;
-let postList = document.getElementById('post-list');
-
 
 export function Posts(posts){
     const section = document.createElement("section");

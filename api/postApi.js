@@ -25,8 +25,20 @@ export async function getPosts(currentPage, pageSize){
   try{
     const response = await fetch(url);
     if (!response.ok) console.log("게시글 목록 조회 실패");
-    return response.json();
+    return await response.json();
   } catch{
     console.error("게시글 목록 조회 실패", err);
+  }
+}
+
+export async function getPostDetail(postId){
+  const getPostDetailUrl = `http://localhost:8080/api/posts/${postId}`;
+
+  try{
+    const response = await fetch(getPostDetailUrl);
+    if (!response.ok) console.log("게시글 상세 조회 실패");
+    return await response.json();
+  } catch{
+    console.error("게시글 상세 조회 실패", err);
   }
 }

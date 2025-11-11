@@ -1,4 +1,5 @@
 import { getTitle, getCount, fromCreatedAt } from "../utils/formatUtils.js";
+import {navigateTo} from "../router/router.js"
 
 export function PostItem(data){
     const title = getTitle(data.title);
@@ -6,7 +7,6 @@ export function PostItem(data){
     const commentCount = getCount(data.statsCommentCounts);
     const viewCount = getCount(data.statsViewCounts);
     const createdAt = fromCreatedAt(data.createdAt);
-    console.log(data.userProfileImgUrl);
     const post = document.createElement("div");
     post.classList.add("post-card");
     post.innerHTML = `
@@ -21,5 +21,7 @@ export function PostItem(data){
         <span>${data.userNickname}</span>
     </div>
     `;
+    post.addEventListener("click", () => navigateTo(`/posts/${data.id}`));
+
     return post;
 }
