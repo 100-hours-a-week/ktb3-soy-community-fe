@@ -3,6 +3,7 @@ import {CommentInputForm} from "./CommentInputForm.js";
 
 export function CommentsSection(postId){
     const section = document.createElement("section");
+    section.id = "comment-section";
     // section.classList.add('comments-section');
 
     const form = CommentInputForm(postId);

@@ -42,3 +42,25 @@ export async function deleteComments(postId, commentId, userId){
     return false
   }
 }
+
+export async function editComment(commentData, postId, commentId){
+  const userId = localStorage.getItem("userId");
+  const editCommentUrl = `http://localhost:8080/api/posts/${postId}/comments/${commentId}?userId=${userId}`;
+  console.log(editCommentUrl);
+
+  try{
+    const response = await fetch(editCommentUrl, {
+      method: "PATCH", 
+      headers: {
+        "Header": "application/json",
+        "Content-Type": "application/json"},
+        body: JSON.stringify(commentData)});
+
+    if (!response.ok) alert("댓글 수정 실패");
+    const data = await response.json();
+    return true;
+  } catch(error) {
+    console.log("댓글 수정 에러" + error);
+    return false
+  }
+}
