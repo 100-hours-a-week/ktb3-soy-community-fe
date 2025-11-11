@@ -8,7 +8,7 @@ export function CommentList(postId){
         commentLists => {
             console.log(commentLists)
             commentLists.forEach(comment => {
-                const item = CommentItem(comment);
+                const item = CommentItem(comment, postId);
                 list.appendChild(item);
             })
         }

@@ -30,3 +30,15 @@ export async function getComments(postId) {
     console.error("댓글 조회 중 오류 발생:", err);
   }
 }
+
+export async function deleteComments(postId, commentId, userId){
+  const deletePostUrl =  `http://localhost:8080/api/posts/${postId}/comments/${commentId}?userId=${userId}`;
+  try{
+      const response = await fetch(deletePostUrl, {method: "DELETE"});
+      if (!response.ok) console.log("댓글 삭제 실패");
+      return true;
+  } catch(error) {
+    console.log("댓글 삭제 에러" + error);
+    return false
+  }
+}

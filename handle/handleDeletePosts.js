@@ -1,7 +1,7 @@
 import { ModalDelete } from "../components/ModalDelete.js";
 import {deletePost} from "../api/postApi.js"
 
-export function handleDeleteContents(message, postId){
+export function handleDeletePosts(message, postId){
     ModalDelete(message);
 
     const modal = document.getElementById("modal-delete");

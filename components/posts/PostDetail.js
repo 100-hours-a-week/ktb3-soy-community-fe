@@ -1,7 +1,7 @@
 
 import { handlePostDetailView } from "../../handle/handlePostDetailView.js";
 import { navigateTo } from "../../router/router.js";
-import {handleDeleteContents} from "../../handle/handleDeleteContents.js";
+import {handleDeletePosts} from "../../handle/handleDeletePosts.js";
 
 export function PostDetail(postId){
     const modalDeleteMsg = "게시글을 삭제하시겠습니까?";
@@ -36,7 +36,7 @@ export function PostDetail(postId){
         btnPostEdit.addEventListener("click", () => navigateTo(`/posts/${postId}/edit`));
     
         const btnPostDelete = article.querySelector("#btn-post-delete");
-        btnPostDelete.addEventListener("click", () => handleDeleteContents(modalDeleteMsg, postId));
+        btnPostDelete.addEventListener("click", () => handleDeletePosts(modalDeleteMsg, postId));
     
     });
     return article;
