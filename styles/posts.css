@@ -8,6 +8,7 @@
   flex-direction: column;
   align-items: center;
   gap: 20px; 
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -18,7 +19,6 @@
   line-height: 130%;
   text-align: center;
   color: #000;
-  margin: 0;
 }
 
 .post-header button {

@@ -1,10 +1,10 @@
-import {LoginPage} from "../components/LoginPage.js";
+import {LoginPage} from "../pages/LoginPage.js";
 import {Posts} from "../components/posts/Posts.js";
 import { PostsCreate } from "../components/posts/PostsCreate.js";
 import {PostDetail} from "../components/posts/PostDetail.js";
 import { PostEdit } from "../components/posts/PostEdit.js";
 import { CommentsSection } from "../components/comments/CommentsSection.js";
-import { SignUpPage } from "../components/SignUpPage.js";
+import { SignUpPage } from "../pages/SignUpPage.js";
 
 const app = document.getElementById("app");
 

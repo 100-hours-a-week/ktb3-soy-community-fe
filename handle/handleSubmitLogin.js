@@ -1,6 +1,7 @@
 import { loginUser } from "../api/userApi.js"
 import { navigateTo } from "../router/router.js";
-
+import { renderHeader } from "../utils/renderUtils.js";
+import { setNewDropDown } from "./handleLoginDropDown.js";
 
 export async function submitLogin(event){
     event.preventDefault();
@@ -28,6 +29,7 @@ export async function submitLogin(event){
         const data = await response.json();
         localStorage.setItem("userId", data.data.userId);
         localStorage.setItem("userProfileImg", data.data.userProfileImgUrl);
+        setNewDropDown();
         navigateTo("/posts");
     } catch(err){
         console.log("로그인 실패: " + err);

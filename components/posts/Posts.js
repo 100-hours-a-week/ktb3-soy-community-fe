@@ -28,7 +28,6 @@ export function Posts(){
     );
 
     const domPostList = section.querySelector("#post-list");
-    console.log(currentPage);
     handlePostsView(domPostList, currentPage, default_size);
     currentPage++;
 

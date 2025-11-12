@@ -1,6 +1,6 @@
 import {submitLogin} from "../handle/handleSubmitLogin.js"
 import {handleInvalidEmail, handleInvalidPassword} from "../handle/handleLoginInvalidInput.js";
-
+import { renderHeader } from "../utils/renderUtils.js";
 export function Login(){
     const section = document.createElement("section");
     section.className = "login-box";
@@ -16,6 +16,8 @@ export function Login(){
         </form>
     `;
 
+    let activeField = null; // 현재 포커스된 입력 필드 추적용
+
     const helperText = section.querySelector("#helper-text");
     const userEmail = section.querySelector("#user-email");
     const userPassword = section.querySelector("#user-password");
@@ -25,8 +27,7 @@ export function Login(){
     userPassword.addEventListener("focus", () => (activeField = "password"));
 
     function validateAll() {
-        let activeField = null; // 현재 포커스된 입력 필드 추적용
-
+        
         let emailValid = handleInvalidEmail(helperText, userEmail.value);
         let passwordValid = handleInvalidPassword(helperText, userPassword.value);
 

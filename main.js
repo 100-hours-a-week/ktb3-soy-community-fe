@@ -1,5 +1,13 @@
-import { initRouter } from "./router/router.js";
+import { initRouter, navigateTo } from "./router/router.js";
+import { renderHeader } from "./utils/renderUtils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  initRouter();
+  renderHeader();
+  initRouter(); 
+});
+
+window.addEventListener('beforeunload', (event) => {
+  event.preventDefault();
+  localStorage.clear();
+  navigateTo("/");
 });

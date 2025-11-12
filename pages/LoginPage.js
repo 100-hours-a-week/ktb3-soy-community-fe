@@ -1,5 +1,6 @@
-import { SignUpLink } from "./SignUpLink.js";
-import { Login } from "./Login.js";
+import { SignUpLink } from "../components/SignUpLink.js";
+import { Login } from "../components/Login.js";
+import { Header } from "../components/header.js";
 
 export function LoginPage(){
     const login = Login();
