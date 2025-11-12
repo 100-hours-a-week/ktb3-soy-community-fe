@@ -76,5 +76,6 @@ export function navigateTo(url){
 window.addEventListener("popstate", router);
 
 export function initRouter(){
-  navigateTo("/");
+  // navigateTo("/");
+  router(); 
 }
