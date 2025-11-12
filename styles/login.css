@@ -1,12 +1,11 @@
 .login-box {
   padding: 40px;
   border-radius: 10px;
-  width: 360px;
+  width: 450px;
 }
 
 .login-box-title {
-    font-weight: 70
-    0;
+    font-weight: 700;
     font-style: bold;
     text-align: center;
 }
@@ -20,12 +19,6 @@ form {
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-.link {
-  text-align: center;
-  margin-top: 16px;
-  cursor: pointer;
 }
 
 label{

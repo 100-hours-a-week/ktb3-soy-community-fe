@@ -21,12 +21,12 @@ export function Login(){
     const userPassword = section.querySelector("#user-password");
     const loginBtn = section.querySelector("#btn-login");
 
-    let activeField = null; // 현재 포커스된 입력 필드 추적용
-
     userEmail.addEventListener("focus", () => (activeField = "email"));
     userPassword.addEventListener("focus", () => (activeField = "password"));
 
     function validateAll() {
+        let activeField = null; // 현재 포커스된 입력 필드 추적용
+
         let emailValid = handleInvalidEmail(helperText, userEmail.value);
         let passwordValid = handleInvalidPassword(helperText, userPassword.value);
 
@@ -43,6 +43,7 @@ export function Login(){
 
     userEmail.addEventListener("input", validateAll);
     userPassword.addEventListener("input", validateAll);
+
     loginBtn.addEventListener("click", submitLogin);
 
     return section;
