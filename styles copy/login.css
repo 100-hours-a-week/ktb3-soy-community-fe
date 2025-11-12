@@ -11,6 +11,13 @@
     text-align: center;
 }
 
+label{
+    font-weight: 700;
+    font-size:15px;
+    line-height: 100%;
+    letter-spacing: 0; 
+}
+
 .login-box h2 {
   text-align: center;
   margin-bottom: 24px;
@@ -22,17 +29,10 @@ form {
   gap: 12px;
 }
 
+
 .link {
   text-align: center;
   margin-top: 16px;
-  cursor: pointer;
-}
-
-label{
-    font-weight: 700;
-    font-size:15px;
-    line-height: 100%;
-    letter-spacing: 0; 
 }
 
 .helper-text {
@@ -48,8 +48,4 @@ label{
 
 .helper-text.show{
   display: block;
-}
-
-.helper-text.hide{
-  display:  none;
 }

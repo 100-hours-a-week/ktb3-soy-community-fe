@@ -1,5 +1,5 @@
 import {submitLogin} from "../handle/handleSubmitLogin.js"
-import {handleInvalidEmail} from "../handle/handleLoginInvalidInput.js";
+import {handleInvalidEmail, handleInvalidPassword} from "../handle/handleLoginInvalidInput.js";
 
 export function Login(){
     const section = document.createElement("section");
@@ -12,18 +12,37 @@ export function Login(){
             <label>비밀번호</label>
             <input type="password" id = "user-password" placeholder="비밀번호를 입력하세요">
             <p class="helper-text" id="helper-text">* helper text</p>
-            <button class="btn-primary" id = "btn-login">로그인</button>
+            <button class="btn-primary" id = "btn-login" disabled>로그인</button>
         </form>
     `;
 
     const helperText = section.querySelector("#helper-text");
     const userEmail = section.querySelector("#user-email");
-    userEmail.addEventListener("input", () => handleInvalidEmail(helperText, userEmail.value));
-
     const userPassword = section.querySelector("#user-password");
-    userPassword.addEventListener("input", () => handleInvalidPassword(helperText, userPassword));
-    
     const loginBtn = section.querySelector("#btn-login");
+
+    let activeField = null; // 현재 포커스된 입력 필드 추적용
+
+    userEmail.addEventListener("focus", () => (activeField = "email"));
+    userPassword.addEventListener("focus", () => (activeField = "password"));
+
+    function validateAll() {
+        let emailValid = handleInvalidEmail(helperText, userEmail.value);
+        let passwordValid = handleInvalidPassword(helperText, userPassword.value);
+
+        // 현재 focus된 input에 따라 메시지 결정
+        if (activeField === "email") {
+        emailValid = handleInvalidEmail(helperText, userEmail.value);
+        } else if (activeField === "password") {
+        passwordValid = handleInvalidPassword(helperText, userPassword.value);
+        }
+
+        // 버튼 활성화
+        loginBtn.disabled = !(emailValid && passwordValid);
+    }
+
+    userEmail.addEventListener("input", validateAll);
+    userPassword.addEventListener("input", validateAll);
     loginBtn.addEventListener("click", submitLogin);
 
     return section;

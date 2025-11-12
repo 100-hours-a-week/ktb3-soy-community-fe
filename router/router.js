@@ -78,6 +78,7 @@ export function navigateTo(url){
 window.addEventListener("popstate", router);
 
 export function initRouter(){
-  // navigateTo("/");
-  router(); 
+  router("/"); 
+  app.innerHTML = "";
+  app.appendChild(LoginPage())
 }
