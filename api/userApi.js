@@ -72,10 +72,33 @@ export async function deleteUser(userId){
             headers: { "Content-Type": "application/json" },
         }); 
         if (res.ok){
-            console.log("회원 삭제 실패");
-        }
-        console.log("회원 삭제 성공");
+            console.log("회원 삭제 성공");
+        } else {
+            console.log("회원 삭제 실패")
+        };
     } catch(err){
         console.error("회원 삭제 실패: ", err);
+    }
+}
+
+export async function patchNewPassword(userId, userOldPassword, userNewPassword){
+    try{
+        const data = {
+                "userOldPassword": userOldPassword.value, 
+                "userNewPassword": userNewPassword.value
+        };
+        console.log(data);
+        const res = await fetch(`http://localhost:8080/api/users/${userId}/password`,{
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+        if(res.ok){
+            console.log("회원 비밀번호 변경 성공");
+        } else{
+            console.log("회원 비밀번호 변경 실패");
+        }
+    } catch(err){
+        console.error("회원 비밀번호 변경 실패: ", err);
     }
 }

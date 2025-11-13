@@ -8,10 +8,13 @@ export function setNewDropDown(){
     userProfile.style.display = 'inline-block';
     userProfileImage.src = localStorage.getItem("userProfileImg");
 
-
     const editUserProfile = document.querySelector("#edit-user-profile");
     console.log(editUserProfile);
     editUserProfile.addEventListener("click", () => navigateTo("/edit-profile"));
+
+    const editUserPassword = document.querySelector("#edit-user-password");
+    console.log(editUserProfile);
+    editUserPassword.addEventListener("click", () => navigateTo("/edit-password"));
 
 
 }

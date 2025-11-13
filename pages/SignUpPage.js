@@ -42,7 +42,6 @@ export function SignUpPage(){
     <button class="btn-primary" id="btn-signup" disabled>회원가입</button>
 
     <p class="link" id="link-login">로그인하러 가기</a></p>
-  </section>    
   `;
 
   const paragraph = section.querySelector("#link-login");
@@ -69,21 +68,43 @@ export function SignUpPage(){
       const newImageUrl = await handleProfileImageChanged(e);
       userProfileImgInputPreview.src = newImageUrl;}
   );
+    
+    let isEmailValid = false;
+    let isPasswordValid = false;
+    let isPasswordCheckValid = false;
+    let isNicknameValid = false;
 
-  let isOkToSend = true;
+    function updateButtonState(){
+        signUpBtn.disabled = !(isEmailValid && isPasswordValid && isPasswordCheckValid && isNicknameValid);
+    }
 
-  userEmail.addEventListener("blur", () => {
-    if (!isValidEmailForSignUp(helperTextEmail, userEmail.value)){ isOkToSend = false;}});
-  userPassword.addEventListener("blur", () =>{
-    if (isValidPasswordForSignUp(helperTextPassword, userPassword.value)){isOkToSend = false;}});
-  userPasswordCheck.addEventListener("input", () => {
-    if (isValidPasswordCheckForSignUp(helperTextPasswordCheck, userPasswordCheck.value, userPassword.value)){isOkToSend = false;}});
-  userNickname.addEventListener("input", () => {
-    if (isValidNicknameForSignUp(helperTextNickname, userNickname.value)){isOkToSend = false;}});
-  
-  if (isOkToSend){
-    signUpBtn.disabled = false;
-  }
+    userEmail.addEventListener("blur", () => {
+        isEmailValid = isValidEmailForSignUp(
+            helperTextEmail, userEmail.value
+        );
+        updateButtonState();
+    })
+
+    userPassword.addEventListener("blur", () => {
+        isPasswordValid = isValidPasswordForSignUp(
+            helperTextPassword, userPassword.value
+        );
+        updateButtonState();
+    })
+
+    userPasswordCheck.addEventListener("blur", () => {
+        isPasswordCheckValid = isValidPasswordCheckForSignUp(
+            helperTextPasswordCheck, userPasswordCheck.value, userPassword.value
+        );
+        updateButtonState();
+    })
+
+    userNickname.addEventListener("blur", () => {
+        isNicknameValid = isValidNicknameForSignUp(
+            helperTextNickname, userNickname.value
+        );
+        updateButtonState();
+    })
 
   signUpBtn.addEventListener(
     "click", 

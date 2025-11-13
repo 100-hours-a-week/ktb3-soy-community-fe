@@ -6,6 +6,7 @@ import { PostEdit } from "../components/posts/PostEdit.js";
 import { CommentsSection } from "../components/comments/CommentsSection.js";
 import { SignUpPage } from "../pages/SignUpPage.js";
 import {EditProfilePage} from "../pages/EditProfilePage.js";
+import {EditPasswordPage} from "../pages/EditPasswordPage.js";
 
 const app = document.getElementById("app");
 
@@ -16,7 +17,8 @@ const routes = {
   "/posts/create": [PostsCreate],
   "/posts/:param1": [PostDetail, CommentsSection],
   "/posts/:param1/edit": [PostEdit],
-  "/edit-profile": [EditProfilePage]
+  "/edit-profile": [EditProfilePage],
+  "/edit-password": [EditPasswordPage]
 };
 
 function toParamPath(path) {
