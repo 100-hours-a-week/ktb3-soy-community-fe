@@ -1,11 +1,11 @@
 import { LoginPage } from "../pages/LoginPage.js";
-import { PostsCreate } from "../components/posts/PostsCreate.js";
 import { PostEdit } from "../components/posts/PostEdit.js";
 import { SignUpPage } from "../pages/SignUpPage.js";
 import {EditProfilePage} from "../pages/EditProfilePage.js";
 import {EditPasswordPage} from "../pages/EditPasswordPage.js";
 import { PostDetailPage } from "../pages/PostDetailPage.js";
 import { PostListPage } from "../pages/PostListPage.js";
+import { PostCreatePage } from "../pages/PostCreatePage.js";
 
 const app = document.getElementById("app");
 
@@ -13,7 +13,7 @@ const routes = {
   "/": [LoginPage],
   "/signup": [SignUpPage],
   "/posts": [PostListPage],
-  "/posts/create": [PostsCreate],
+  "/posts/create": [PostCreatePage],
   "/posts/:param1": [PostDetailPage],
   "/posts/:param1/edit": [PostEdit],
   "/edit-profile": [EditProfilePage],
@@ -60,7 +60,6 @@ export function router(){
   }
 
   const components = routes[matched];
-
   /*
    보여줄 컴포넌트들 하나씩 순회하면서 파라미터 값 찾고 반환 
    app에 자식으로 추가해줌 
