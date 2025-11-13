@@ -53,11 +53,15 @@ export async function uploadNickname(nickname){
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(postData)
         });
-
-        const data = await res.json();
-        console.log("닉네임 변경 성공");
+        if (res.ok) {
+            console.log("닉네임 변경 성공");
+            return true;
+        } else {
+            return false;
+        }
     } catch(err){
         console.err("닉네임 변경 실패:", err);
+        return false;
     }
 }
 

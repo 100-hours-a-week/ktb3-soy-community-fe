@@ -5,14 +5,14 @@ export async function handleEditUserProfile(newUserImgInput, newUserNickname, he
     const nickname = newUserNickname.value;
 
     if (!isValidNicknameForSignUp(helperText, nickname)){
-        return;
+        return false;
     }
 
-    await uploadNickname(nickname)
+    const isEdited = await uploadNickname(nickname);
 
     if (newUserImgInput && newUserImgInput.files.length > 0) {
       const file = newUserImgInput.files[0];
       await uploadProfileImage(file);
     }
-    
+    return isEdited;
 }

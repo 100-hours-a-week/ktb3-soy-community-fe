@@ -9,7 +9,7 @@ export function Header(){
             <ul class="menu">
             <li id="edit-user-profile">회원 정보 수정</li>
             <li id="edit-user-password">비밀번호 수정</li>
-            <li id="delete-user">회원 정보 삭제</li>
+            <li id="logout-user">로그아웃</li>
             </ul>
         </div>
         </div>

@@ -1,6 +1,8 @@
 import { handleEditUserProfile } from "../handle/handleEditUserProfile.js";
 import {handleProfileImageChanged} from "../handle/handleProfileImageChanged.js"
 import { handleDeleteUsers } from "../handle/handleDeleteUsers.js";
+import { showToast } from "./Toast.js";
+
 export function EditProfile(){
     const section = document.createElement("section");
     section.className = "edit-profile-box";
@@ -26,7 +28,9 @@ export function EditProfile(){
           <p class="helper-text" id="helper-text-nickname">* helper text</p>
         </div>
         <button class="btn-primary" id="btn-edit">수정하기</button>
-        <p class="link" id="link-user-delete">회원 탈퇴</a></p>`;
+        <p class="link" id="link-user-delete">회원 탈퇴</a></p>
+        <div class="toast" id="toast"></div>
+        `;
 
     const newUserProfileImgInput = section.querySelector("#userProfileImg");
     const newUserProfileImgInputPreview = section.querySelector("#userProfileImgPreview");
@@ -41,7 +45,16 @@ export function EditProfile(){
     const helperText = section.querySelector("#helper-text-nickname");
     const btnEditProfile = section.querySelector("#btn-edit");
     btnEditProfile.addEventListener("click", 
-        () => handleEditUserProfile(newUserProfileImgInput, newUserNickname, helperText));
+        async () => {
+            const isEdited = 
+            await handleEditUserProfile(newUserProfileImgInput, newUserNickname, helperText);
+            console.log(isEdited);
+            if (isEdited){
+                const toastDiv = section.querySelector("#toast");
+                showToast(toastDiv, "수정 완료");
+            }
+        }
+    );
     
     const linkUserDelete = section.querySelector("#link-user-delete");
     const titleMsg = "회원 탈퇴하시겠습니까?"
