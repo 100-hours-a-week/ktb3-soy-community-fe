@@ -1,5 +1,4 @@
 import { loginUser } from "../../api/userApi.js";
-import { setNewDropDown } from "./handleLoginDropDown.js";
 import { navigateTo } from "../../router/router.js";
 
 export async function attachLoginSubmit(email, password, helperText){
@@ -22,8 +21,6 @@ export async function attachLoginSubmit(email, password, helperText){
         localStorage.setItem("userProfileImg", data.data.userProfileImgUrl);
         localStorage.setItem("userEmail", email.value);
         localStorage.setItem("userNickname", data.data.userNickname);
-
-        setNewDropDown();
         navigateTo("/posts");
 
     } catch (err) {

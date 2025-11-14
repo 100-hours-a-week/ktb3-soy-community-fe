@@ -5,7 +5,7 @@ export function renderHeader(){
     if (existingHeader) {
         existingHeader.remove();
     }
-
+    console.log("hi");
     const newHeader = Header();
     document.body.prepend(newHeader);
 }

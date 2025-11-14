@@ -13,11 +13,9 @@ export async function handleSignUpSubmit(section, userEmail, userPassword, userP
     
     await postSignUpData(userData);
 
-    const profileImgInput = section.querySelector("#userProfileImg");
-    console.log(profileImgInput);
-    console.log(profileImgInput.files.length);
+    const profileImgInput = section.querySelector("userProfileImg");
+
     if (profileImgInput && profileImgInput.files.length > 0) {
-        console.log("dlrj")
         const file = profileImgInput.files[0];
         await uploadProfileImage(file);
     }

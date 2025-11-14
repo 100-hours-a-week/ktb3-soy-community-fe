@@ -55,6 +55,7 @@ export async function uploadNickname(nickname){
         });
         if (res.ok) {
             console.log("닉네임 변경 성공");
+            localStorage.setItem("userNickname", nickname);
             return true;
         } else {
             return false;
