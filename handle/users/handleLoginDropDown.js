@@ -2,6 +2,7 @@ import { navigateTo } from "../../router/router.js";
 
 export function setNewDropDown(){
     const header = document.getElementById("header");
+
     const userProfile = document.querySelector("#user-profile");
     const userProfileImage = document.querySelector("#profile-img");
 

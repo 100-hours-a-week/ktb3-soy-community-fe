@@ -1,6 +1,6 @@
 import { postSignUpData, uploadProfileImage } from "../../api/userApi.js";
 
-export async function handleSignUpSubmit(userEmail, userPassword, userPasswordCheck, userNickname){
+export async function handleSignUpSubmit(section, userEmail, userPassword, userPasswordCheck, userNickname){
     const email = userEmail.value;
     const password = userPassword.value;
     const passwordCheck = userPasswordCheck.value;
@@ -13,10 +13,13 @@ export async function handleSignUpSubmit(userEmail, userPassword, userPasswordCh
     
     await postSignUpData(userData);
 
-    const profileImgInput = document.getElementById("userProfileImg");
+    const profileImgInput = section.querySelector("#userProfileImg");
+    console.log(profileImgInput);
+    console.log(profileImgInput.files.length);
     if (profileImgInput && profileImgInput.files.length > 0) {
-      const file = profileImgInput.files[0];
-      await uploadProfileImage(file);
+        console.log("dlrj")
+        const file = profileImgInput.files[0];
+        await uploadProfileImage(file);
     }
 
 }

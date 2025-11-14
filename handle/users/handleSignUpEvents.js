@@ -69,7 +69,7 @@ export function attachSignUpEvents(section){
 
     // submit
     signUpBtn.addEventListener("click", () => {
-        handleSignUpSubmit(userEmail, userPassword, userPasswordCheck, userNickname);
+        handleSignUpSubmit(section, userEmail, userPassword, userPasswordCheck, userNickname);
         navigateTo("/");
     });
 }
