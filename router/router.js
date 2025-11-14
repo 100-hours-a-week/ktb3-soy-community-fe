@@ -6,6 +6,7 @@ import {EditPasswordPage} from "../pages/EditPasswordPage.js";
 import { PostDetailPage } from "../pages/PostDetailPage.js";
 import { PostListPage } from "../pages/PostListPage.js";
 import { PostCreatePage } from "../pages/PostCreatePage.js";
+import {PostEditPage} from "../pages/PostEditPage.js";
 
 const app = document.getElementById("app");
 
@@ -15,7 +16,7 @@ const routes = {
   "/posts": [PostListPage],
   "/posts/create": [PostCreatePage],
   "/posts/:param1": [PostDetailPage],
-  "/posts/:param1/edit": [PostEdit],
+  "/posts/:param1/edit": [PostEditPage],
   "/edit-profile": [EditProfilePage],
   "/edit-password": [EditPasswordPage]
 };

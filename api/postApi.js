@@ -44,7 +44,6 @@ export async function getPostDetail(postId, userId){
 
 export async function editPost(postData, postId, userId){
   const editPostUrl = `http://localhost:8080/api/posts/${postId}?userId=${userId}`;
-  console.log(editPostUrl);
 
   try{
       const response = await fetch(editPostUrl, {
@@ -54,10 +53,12 @@ export async function editPost(postData, postId, userId){
                   "Content-Type": "application/json"},
                 body: JSON.stringify(postData)});
 
-      if (!response.ok) alert("게시글 수정 실패");
-  
-      const data = await response.json();
-      return true;
+      if (!response.ok){
+        console.log("게시글 수정 실패");
+      } else {
+        console.log("게시글 수정 완료");
+      }
+      return await response.json();
   } catch(error) {
     console.log("게시글 수정 에러" + error);
     return false

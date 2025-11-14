@@ -1,4 +1,4 @@
-import { editPost } from "../api/postApi.js";
+import { editPost } from "../../api/postApi.js";
 
 export async function handlePostEdit(event, postId){
     event.preventDefault();
@@ -12,8 +12,5 @@ export async function handlePostEdit(event, postId){
     };
 
     const userId = localStorage.getItem("userId");
-    const isCreated = await editPost(newPost, postId, userId);
-    if (isCreated){
-        console.log("게시글 수정 완료");
-    } 
+    const data = await editPost(newPost, postId, userId);
 }
