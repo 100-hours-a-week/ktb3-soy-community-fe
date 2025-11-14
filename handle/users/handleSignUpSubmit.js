@@ -13,11 +13,13 @@ export async function handleSignUpSubmit(section, userEmail, userPassword, userP
     
     await postSignUpData(userData);
 
-    const profileImgInput = section.querySelector("userProfileImg");
+    const profileImgInput = section.querySelector("#userProfileImg");
 
     if (profileImgInput && profileImgInput.files.length > 0) {
         const file = profileImgInput.files[0];
         await uploadProfileImage(file);
     }
+
+    localStorage.setItem("isLogin", "false");
 
 }

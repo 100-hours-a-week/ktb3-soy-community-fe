@@ -69,6 +69,15 @@
   background: #F3E8FF;
 }
 
+.post-img {
+  width: 100%;           /* 가로는 컨테이너에 딱 맞게 */
+  max-width: 450px;      /* 원한다면 최대 폭 제한 */
+  height: 300px;         /* 원하는 고정 높이 */
+  object-fit: cover;     /* 중앙 기준 잘라서 비율 유지 */
+  border-radius: 12px;   /* 부드러운 모서리 */
+  margin-top: 10px;
+}
+
 
 /* 좋아요/조회수/댓글 박스 */
 .stats {

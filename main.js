@@ -1,5 +1,5 @@
-import { initRouter, navigateTo } from "./router/router.js";
-import { renderHeader } from "./utils/renderUtils.js";
+import { initRouter } from "./router/router.js";
+import { renderHeader } from "../handle/RenderHeader.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   renderHeader();

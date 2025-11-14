@@ -59,24 +59,26 @@ export function router(){
     }
 
     renderHeader();
-    setNewDropDown();
-
+    if (localStorage.getItem("isLogin") === "true") {
+        setNewDropDown();
+    }
+    
     const components = routes[matched];
     /*
     보여줄 컴포넌트들 하나씩 순회하면서 파라미터 값 찾고 반환 
     app에 자식으로 추가해줌 
     */
     components.forEach(component => {
-    const elem = params.length > 0 ? 
-    component(...params)
-    : component();
-    app.appendChild(elem);
+        const elem = params.length > 0 ? 
+            component(...params)
+            : component();
+        app.appendChild(elem);
     });
 }
 
-export function navigateTo(url){
+export async function navigateTo(url){
     window.history.pushState(null, null, url);
-    router();
+    await router();
 }
 
 window.addEventListener("popstate", router);
@@ -84,5 +86,6 @@ window.addEventListener("popstate", router);
 export function initRouter(){
     router("/"); 
     app.innerHTML = "";
-    app.appendChild(LoginPage())
+    app.appendChild(LoginPage());
+    localStorage.setItem("isLogin", "false");
 }

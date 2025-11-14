@@ -15,13 +15,6 @@ export function setNewDropDown(){
     const userProfile = document.querySelector("#user-profile");
     const userProfileImage = document.querySelector("#profile-img");
 
-    const isLogin = localStorage.getItem("userId");
-    
-    if(!isLogin){
-        userProfile.style.display = "none";
-        return;
-    }
-
     userProfile.style.display = 'inline-block';
     userProfileImage.src = localStorage.getItem("userProfileImg");
 
@@ -34,6 +27,7 @@ export function setNewDropDown(){
     const logoutUser = header.querySelector("#logout-user");
     logoutUser.addEventListener("click", () => {
         localStorage.clear();
+        localStorage.setItem("isLogin", "false");
         navigateTo("/");
     });
 

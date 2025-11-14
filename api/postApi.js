@@ -99,7 +99,7 @@ export async function postImageFile(postId, file){
   const formData = new FormData();
   formData.append("file", file);
 
-  fetch(`http://localhost:8080/api/posts/${postId}/profile`, {
+  fetch(`http://localhost:8080/api/posts/${postId}`, {
     method: "POST",
     body: formData
   })
@@ -109,7 +109,6 @@ export async function postImageFile(postId, file){
     })
     .then(data => {
       console.log("이미지 업데이트 완료:", data);
-      localStorage.setItem("userProfileImg", data.profileImgUrl);
     })
     .catch(err => console.error(err));
 }

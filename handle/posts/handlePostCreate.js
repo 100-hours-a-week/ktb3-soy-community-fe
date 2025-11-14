@@ -40,7 +40,7 @@ export async function attachPostCreate(section){
     
         if (postImgFile.files.length > 0){
             const file = postImgFile.files[0];
-            postImageFile(postId, file);
+            await postImageFile(postId, file);
         }
     });
 }

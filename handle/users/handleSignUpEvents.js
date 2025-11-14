@@ -68,8 +68,8 @@ export function attachSignUpEvents(section){
     });
 
     // submit
-    signUpBtn.addEventListener("click", () => {
-        handleSignUpSubmit(section, userEmail, userPassword, userPasswordCheck, userNickname);
+    signUpBtn.addEventListener("click", async () => {
+        await handleSignUpSubmit(section, userEmail, userPassword, userPasswordCheck, userNickname);
         navigateTo("/");
     });
 }

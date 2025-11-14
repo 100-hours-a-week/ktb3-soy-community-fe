@@ -21,7 +21,10 @@ export async function attachLoginSubmit(email, password, helperText){
         localStorage.setItem("userProfileImg", data.data.userProfileImgUrl);
         localStorage.setItem("userEmail", email.value);
         localStorage.setItem("userNickname", data.data.userNickname);
+        localStorage.setItem("isLogin", "true");
+        
         navigateTo("/posts");
+        
 
     } catch (err) {
         console.log("로그인 실패:", err);
