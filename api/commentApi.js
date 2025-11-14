@@ -7,8 +7,6 @@ export async function createComment(commentData, postId){
         body: JSON.stringify(commentData)
     });
 
-    console.log(response);
-
     if (!response.ok) {
         console.log("댓글 등록 실패");
         return {state: "fail"};
@@ -22,7 +20,6 @@ export async function createComment(commentData, postId){
 export async function getComments(postId) {
   try {
     const response = await fetch(`http://localhost:8080/api/posts/${postId}/comments`);
-    console.log(response);
     if (!response.ok) console.log("댓글 조회 실패");
     return await response.json();
   } catch (err) {
@@ -45,7 +42,6 @@ export async function deleteComments(postId, commentId, userId){
 export async function editComment(commentData, postId, commentId){
   const userId = localStorage.getItem("userId");
   const editCommentUrl = `http://localhost:8080/api/posts/${postId}/comments/${commentId}?userId=${userId}`;
-  console.log(editCommentUrl);
 
   try{
     const response = await fetch(editCommentUrl, {
@@ -57,7 +53,6 @@ export async function editComment(commentData, postId, commentId){
 
     if (!response.ok) alert("댓글 수정 실패");
     const data = await response.json();
-    console.log(data);
     return true;
   } catch(error) {
     console.log("댓글 수정 에러" + error);

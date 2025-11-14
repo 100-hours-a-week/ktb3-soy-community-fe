@@ -10,14 +10,14 @@ import { renderHeader, setNewDropDown } from "../handle/RenderHeader.js";
 const app = document.getElementById("app");
 
 const routes = {
-"/": [LoginPage],
-"/signup": [SignUpPage],
-"/posts": [PostListPage],
-"/posts/create": [PostCreatePage],
-"/posts/:param1": [PostDetailPage],
-"/posts/:param1/edit": [PostEditPage],
-"/edit-profile": [EditProfilePage],
-"/edit-password": [EditPasswordPage]
+    "/": [LoginPage],
+    "/signup": [SignUpPage],
+    "/posts": [PostListPage],
+    "/posts/create": [PostCreatePage],
+    "/posts/:param1": [PostDetailPage],
+    "/posts/:param1/edit": [PostEditPage],
+    "/edit-profile": [EditProfilePage],
+    "/edit-password": [EditPasswordPage]
 };
 
 function toParamPath(path) {
@@ -66,7 +66,6 @@ export function router(){
     보여줄 컴포넌트들 하나씩 순회하면서 파라미터 값 찾고 반환 
     app에 자식으로 추가해줌 
     */
-    console.log(...params);
     components.forEach(component => {
     const elem = params.length > 0 ? 
     component(...params)

@@ -32,7 +32,6 @@ export async function getPosts(currentPage, pageSize){
 
 export async function getPostDetail(postId, userId){
   const getPostDetailUrl = `http://localhost:8080/api/posts/${postId}?userId=${userId}`;
-  console.log(getPostDetailUrl);
   try{
     const response = await fetch(getPostDetailUrl);
     if (!response.ok) console.log("게시글 상세 조회 실패");
@@ -121,7 +120,6 @@ export async function likePost(postId, userId){
         const res = await fetch(`http://localhost:8080/api/posts/${postId}/likes?userId=${userId}`, {
                                 method: "POST"});
         const data = await res.json();
-        console.log(data);
         if(!res.ok) {
             return {liked: false, likeCount: data.likeCount}}
         else{return {liked: true, likeCount: data.likeCount}};
@@ -135,7 +133,6 @@ export async function dislikePost(postId, userId){
         const res = await fetch(`http://localhost:8080/api/posts/${postId}/likes?userId=${userId}`, {
                                 method: "DELETE"});
         const data = await res.json();
-        console.log(data);
         if(!res.ok) {
             return {liked: false, likeCount: data.likeCount}}
         else{return {liked: true, likeCount: data.likeCount}};
