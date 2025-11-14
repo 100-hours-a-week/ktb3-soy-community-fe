@@ -9,7 +9,7 @@ export function CommentList(postId){
     list.classList.add("comment-list");
 
     const inputForm = CommentInputForm();
-    attachCommentInputForm(inputForm, postId);
+    attachCommentInputForm(list, inputForm, postId);
     list.appendChild(inputForm);
 
     attachCommentGet(list, postId);

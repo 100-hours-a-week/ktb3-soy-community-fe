@@ -3,7 +3,6 @@ import { handleCommentEdit } from "../../handle/comments/handleCommentEdit.js";
 
 export function CommentItem(data, postId){
     const modalDeleteMsg = "댓글을 삭제하시겠습니까?";
-    console.log(data);
     const commentId = data.id;
     const item = document.createElement("div");
     item.classList.add("comment-item");

@@ -8,6 +8,6 @@ export async function handleCommentCreate(event, postId, inputValue){
     };
 
     const res = await createComment(commentData, postId);
-
+    
     return res;
 }
