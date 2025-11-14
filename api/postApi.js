@@ -30,8 +30,8 @@ export async function getPosts(currentPage, pageSize){
   }
 }
 
-export async function getPostDetail(postId){
-  const getPostDetailUrl = `http://localhost:8080/api/posts/${postId}`;
+export async function getPostDetail(postId, userId){
+  const getPostDetailUrl = `http://localhost:8080/api/posts/${postId}?userId=${userId}`;
   console.log(getPostDetailUrl);
   try{
     const response = await fetch(getPostDetailUrl);
@@ -112,4 +112,33 @@ export async function postImageFile(postId, file){
       localStorage.setItem("userProfileImg", data.profileImgUrl);
     })
     .catch(err => console.error(err));
+}
+
+
+export async function likePost(postId, userId){
+    try{
+        const res = await fetch(`http://localhost:8080/api/posts/${postId}/likes?userId=${userId}`, {
+                                method: "POST"});
+        const data = await res.json();
+        console.log(data);
+        if(!res.ok) {
+            return {liked: false, likeCount: data.likeCount}}
+        else{return {liked: true, likeCount: data.likeCount}};
+    } catch { // 이미 좋아요한 경우 
+        return {liked: true, likeCount: data.likeCount};
+    };
+}
+
+export async function dislikePost(postId, userId){
+    try{
+        const res = await fetch(`http://localhost:8080/api/posts/${postId}/likes?userId=${userId}`, {
+                                method: "DELETE"});
+        const data = await res.json();
+        console.log(data);
+        if(!res.ok) {
+            return {liked: false, likeCount: data.likeCount}}
+        else{return {liked: true, likeCount: data.likeCount}};
+    } catch { // 이미 좋아요한 경우 
+        return {liked: true, likeCount: data.likeCount};
+    };
 }

@@ -20,10 +20,7 @@ export async function attachPostListEvents(section){
         if (!isMore) {return;}
         const nearBottom =
             window.innerHeight + window.scrollY >= document.body.offsetHeight;
-
-        console.log("hi");
-        console.log(nearBottom);
-
+            
         if (nearBottom) {
             isMore = handlePostListView(postList, currentPage, DEFAULT_SIZE);
             currentPage++;

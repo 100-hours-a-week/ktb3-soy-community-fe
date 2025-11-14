@@ -1,4 +1,4 @@
-export function PostDetailComponent(data){
+export function PostDetail(data){
     const article = document.createElement("article");
     article.className = "post-detail";
 
@@ -26,11 +26,16 @@ export function PostDetailComponent(data){
         </div>
 
         <div class="stats">
-            <button>좋아요 ${data.statsLikeCounts}</button>
-            <button>조회수 ${data.statsViewCounts}</button>
-            <button>댓글 ${data.statsCommentCounts}</button>
+            <button class="btn-likes" id="btn-likes">좋아요 ${data.statsLikeCounts}</button>
+            <button id="btn-views">조회수 ${data.statsViewCounts}</button>
+            <button id="btn-comments">댓글 ${data.statsCommentCounts}</button>
         </div>
     `;
+
+    if (data.isUserLiked) {
+        article.querySelector("#btn-likes").classList.add("liked");
+    }
+
 
     return article;
 }

@@ -6,8 +6,3 @@ document.addEventListener("DOMContentLoaded", () => {
   initRouter(); 
 });
 
-window.addEventListener('beforeunload', (event) => {
-  event.preventDefault();
-  localStorage.clear();
-  navigateTo("/");
-});

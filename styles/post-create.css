@@ -47,10 +47,10 @@
 }
 
 /* textarea 크기 */
-.post-create textarea {
+/* .post-create textarea {
   min-height: 180px;
   resize: vertical;
-}
+} */
 
 /* 파일 업로드 input */
 .post-create input[type="file"] {

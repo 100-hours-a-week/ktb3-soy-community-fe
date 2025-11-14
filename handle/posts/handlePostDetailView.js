@@ -1,9 +1,6 @@
 import { getPostDetail } from "../../api/postApi.js";
+import { PostDetail } from "../../components/posts/PostDetail.js";
 
 export async function handlePostDetailView(postId){
-  try {
-    return await getPostDetail(postId);
-  } catch (err) {
-    console.log("게시글 상세 조회 실패", err);
-  }
+    return await getPostDetail(postId, localStorage.getItem("userId"))
 }

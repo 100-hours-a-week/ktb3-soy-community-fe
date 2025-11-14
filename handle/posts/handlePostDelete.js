@@ -1,5 +1,5 @@
-import { ModalDelete } from "../components/ModalDelete.js";
-import {deletePost} from "../api/postApi.js"
+import { ModalDelete } from "../../components/ModalDelete.js";
+import {deletePost} from "../../api/postApi.js"
 
 export function handleDeletePosts(message, postId){
     ModalDelete(message);

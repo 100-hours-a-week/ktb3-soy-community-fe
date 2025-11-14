@@ -5,7 +5,7 @@ import { navigateTo } from "../../router/router.js";
 export function PostEdit(postId){
     const section = document.createElement("section");
     console.log(postId);
-    handlePostDetailView(postId).then(
+    attachPostDetailEvents(postId, localStorage.getItem("userId")).then(
         postDetailData =>{
             section.innerHTML = `
             <h2>게시글 수정</h2>

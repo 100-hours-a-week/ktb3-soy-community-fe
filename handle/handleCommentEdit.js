@@ -1,5 +1,5 @@
 import { editComment } from "../api/commentApi.js";
-import { handleCommentCreate } from "./handleCommentCreate.js";
+import { handleCommentCreate } from "./comments/handleCommentCreate.js";
 
 
 export function handleCommentEdit(data, postId, commentId){
