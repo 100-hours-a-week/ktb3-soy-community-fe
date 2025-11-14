@@ -21,6 +21,7 @@ export async function attachLoginSubmit(email, password, helperText){
         localStorage.setItem("userId", data.data.userId);
         localStorage.setItem("userProfileImg", data.data.userProfileImgUrl);
         localStorage.setItem("userEmail", email.value);
+        localStorage.setItem("userNickname", data.data.userNickname);
 
         setNewDropDown();
         navigateTo("/posts");

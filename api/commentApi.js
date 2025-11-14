@@ -57,6 +57,7 @@ export async function editComment(commentData, postId, commentId){
 
     if (!response.ok) alert("댓글 수정 실패");
     const data = await response.json();
+    console.log(data);
     return true;
   } catch(error) {
     console.log("댓글 수정 에러" + error);

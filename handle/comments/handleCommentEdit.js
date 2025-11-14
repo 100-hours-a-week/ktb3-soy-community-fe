@@ -1,45 +1,34 @@
 import { editComment } from "../../api/commentApi.js";
-import { handleCommentCreate } from "./handleCommentCreate.js";
 
+let createHandler = null;
+let editHandler = null;
 
-export function handleCommentEdit(data, postId, commentId){
+export function handleCommentEdit(item, postId, commentId){
     const form = document.getElementById("comment-input-form");
     const btn = form.querySelector("#btn-comment-submit");
-    const text = form.querySelector("#input-text");
+    const text = form.querySelector(".comment-textarea");
+    const commentContent = item.querySelector(".comment-body").textContent;
 
-    text.value = data.body;
+    console.log(commentId);
+
+    text.value = commentContent;
     btn.textContent = "댓글 수정";
+    btn.addEventListener("click", (event) => editHandler(event));
 
-    form.removeEventListener("submit", handleCommentCreate)
+    editHandler = async (event) => {
+        event.preventDefault();
 
-    form.addEventListener(
-        "submit", async(e) => {
-            e.preventDefault();
+        const newCommentData = {
+            newCommentContent: text.value
+        };
 
-            const newCommentData = {
-                "newCommentContent": text.value 
-            };
+        const res = await editComment(newCommentData, postId, commentId);
+        if (res){
+            item.querySelector(".comment-body").textContent = text.value;
 
-            const res = await editComment(newCommentData, postId, commentId);
-
-            if (res){
-                console.log("댓글 수정 완료");
-                btn.textContent = "댓글 등록";
-                form.reset();
-                form.addEventListener("submit", handleCommentCreate);
-            }
-
+            /*댓글 작성 모드로 바꾸기*/
+            btn.textContent = "댓글 작성";
+            text.value = "";
         }
-    );
-
-
-
-    
-
-
-
-
-
-
-
+    };
 }

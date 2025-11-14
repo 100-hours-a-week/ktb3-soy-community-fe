@@ -1,6 +1,5 @@
 export function PostEdit(data){
     const section = document.createElement("section");
-    console.log(data);
     section.innerHTML = `
     <h2>게시글 수정</h2>
         <form>

@@ -1,12 +1,6 @@
-import { handleDeleteComments } from "../../handle/comments/handleCommentDelete.js";
-import { handleCommentEdit } from "../../handle/comments/handleCommentEdit.js";
-
-export function CommentItem(data, postId){
-    const modalDeleteMsg = "댓글을 삭제하시겠습니까?";
-    const commentId = data.id;
+export function CommentItem(data) {
     const item = document.createElement("div");
     item.classList.add("comment-item");
-
     item.innerHTML = `
         <div class="comment-header">
             <img class="profile-img" src="${data.userProfileImgUrl}">
@@ -16,16 +10,9 @@ export function CommentItem(data, postId){
 
         <p class="comment-body">${data.body}</p>
 
-        <button id="btn-comment-edit" class="btn-comment-edit">수정</button>
-        <button id="btn-comment-delete" class="btn-comment-delete">삭제</button>
+        <button class="btn-comment-edit">수정</button>
+        <button class="btn-comment-delete">삭제</button>
     `;
-
-
-    const btnCommentEdit = item.querySelector("#btn-comment-edit");
-    btnCommentEdit.addEventListener("click", () => handleCommentEdit(data, postId, commentId));
-
-    const btnCommentDelete = item.querySelector("#btn-comment-delete");
-    btnCommentDelete.addEventListener("click", () => handleDeleteComments(modalDeleteMsg, postId, commentId));
 
     return item;
 }

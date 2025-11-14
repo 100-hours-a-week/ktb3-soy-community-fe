@@ -1,5 +1,6 @@
 export function CommentInputForm(){
     const div = document.createElement('div');
+    div.id = "comment-input-form";  
     div.classList.add("comment-input-form");
 
     div.innerHTML = `

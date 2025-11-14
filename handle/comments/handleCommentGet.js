@@ -1,11 +1,14 @@
 import { getComments } from "../../api/commentApi.js";
 import { CommentItem } from "../../components/comments/CommentItem.js";
+import { attachCommentEvents } from "./handleCommentItemEdit.js";
 
-export async function attachCommentGet(list, postId){
+export async function renderComments(list, postId){
     try{
         const commentList = await getComments(postId);
         commentList.forEach(comment => {
             const item = CommentItem(comment, postId);
+            console.log(comment.id);
+            attachCommentEvents(item, postId, comment.id);
             list.appendChild(item);
         })
     } catch(error) {
