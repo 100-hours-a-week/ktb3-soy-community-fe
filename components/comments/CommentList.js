@@ -1,26 +1,18 @@
 import { CommentItem } from "./CommentItem.js";
 import { getComments } from "../../api/commentApi.js";
 import { CommentInputForm } from "./CommentInputForm.js";
-import { handleCommentInputForm } from "../../handle/comments/handleCommentInputForm.js";
+import { attachCommentInputForm } from "../../handle/comments/handleCommentInputForm.js";
+import {attachCommentGet} from "../../handle/comments/handleCommentGet.js";
 
 export function CommentList(postId){
     const list = document.createElement("div");
     list.classList.add("comment-list");
 
     const inputForm = CommentInputForm();
-    handleCommentInputForm(inputForm, postId);
+    attachCommentInputForm(inputForm, postId);
     list.appendChild(inputForm);
 
-    getComments(postId).then(
-        commentLists => {
-            console.log(commentLists)
-            commentLists.forEach(comment => {
-                const item = CommentItem(comment, postId);
-                list.appendChild(item);
-            })
-        }
-    )
-
+    attachCommentGet(list, postId);
 
     return list;
 }

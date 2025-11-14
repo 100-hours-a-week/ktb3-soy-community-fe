@@ -1,5 +1,5 @@
-import { editComment } from "../api/commentApi.js";
-import { handleCommentCreate } from "./comments/handleCommentCreate.js";
+import { editComment } from "../../api/commentApi.js";
+import { handleCommentCreate } from "./handleCommentCreate.js";
 
 
 export function handleCommentEdit(data, postId, commentId){
@@ -11,7 +11,6 @@ export function handleCommentEdit(data, postId, commentId){
     btn.textContent = "댓글 수정";
 
     form.removeEventListener("submit", handleCommentCreate)
-
 
     form.addEventListener(
         "submit", async(e) => {

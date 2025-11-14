@@ -1,5 +1,5 @@
 import { handleDeleteComments } from "../../handle/handleDeleteComments.js";
-import { handleCommentEdit } from "../../handle/handleCommentEdit.js";
+import { handleCommentEdit } from "../../handle/comments/handleCommentEdit.js";
 
 export function CommentItem(data, postId){
     const modalDeleteMsg = "댓글을 삭제하시겠습니까?";

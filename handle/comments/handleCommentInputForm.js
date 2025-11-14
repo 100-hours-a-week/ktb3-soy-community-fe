@@ -1,6 +1,6 @@
 import { handleCommentCreate } from "./handleCommentCreate.js";
 
-export function handleCommentInputForm(form, postId) {
+export function attachCommentInputForm(form, postId) {
     const btn = form.querySelector("#btn-comment-submit");
 
     btn.addEventListener("click", async (event) => {

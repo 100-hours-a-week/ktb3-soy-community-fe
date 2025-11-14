@@ -1,7 +1,3 @@
-import { handlePostDetailView } from "../../handle/handlePostDetailView.js";
-import {handlePostEdit} from "../../handle/posts/handlePostEdit.js";
-import { navigateTo } from "../../router/router.js";
-
 export function PostEdit(data){
     const section = document.createElement("section");
     console.log(data);
