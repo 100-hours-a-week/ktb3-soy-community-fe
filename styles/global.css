@@ -1,0 +1,57 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+#app{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+input,
+.btn-primary {
+  width: 100%;
+  box-sizing: border-box; /* padding + border 포함해서 width 계산 */
+}
+
+input{
+  height: 35px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #d4d4d8;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+/* Primary 버튼 */
+.btn-primary {
+  height: 40px;
+  align-items: center;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  background-color: #7F6AEE;
+}
+
+.btn-primary:disabled {
+  background-color: #ACA0EB;
+  cursor: not-allowed;
+}
+
+.link {
+  text-align: center;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

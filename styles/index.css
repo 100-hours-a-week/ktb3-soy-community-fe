@@ -1,0 +1,14 @@
+@import "./global.css";
+@import "./login.css";
+@import "./signup.css";
+
+@import "./posts.css";
+@import "./post-create.css";
+@import "./post-detail.css";
+@import "./post-edit.css";
+
+@import "./header.css";
+@import "./edit-profile.css";
+@import "./modal.css";
+@import "./toast.css";
+@import "./comments.css";
