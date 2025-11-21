@@ -50,12 +50,3 @@
 .login__btn:disabled {
     background: #595959; /* 토마토 껍질색 */
 }
-
-.login__signup_link_to{
-    margin-top: 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #718C5E; /* 줄기색 */
-    cursor: pointer;
-    text-decoration: underline;
-}

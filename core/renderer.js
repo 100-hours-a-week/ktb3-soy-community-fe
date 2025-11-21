@@ -12,13 +12,9 @@ class Renderer{
     }
 
     render() {
-        const newDom = this.domPage;
-        if(this.oldVNode === null){
-            this.container.appendChild(newDom());
-            return
-        }
         this.container.innerHTML = "";
-        this.container.appendChild(newVDom);
+        this.container.appendChild(this.domPage());
+        console.log("h");
     }
 
 }

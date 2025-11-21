@@ -37,3 +37,12 @@ body {
 .helper-text.invalid {
     color: #d9534f;
 }
+
+.link_to{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #718C5E; /* 줄기색 */
+    cursor: pointer;
+    text-decoration: underline;
+}

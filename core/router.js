@@ -50,7 +50,10 @@ class Router{
             route => {return route === pattern;
         }); 
 
+        
+
         const page = this.pathPageMap[matchedPage];
+        console.log(page);
         mount(page, this.appContainer);
     }
 }

@@ -9,7 +9,7 @@ import {
 import { navigateTo } from "../../core/router.js";
 
 export function attachSignUpEvents(section){
-    const linkLogin = section.querySelector("#link-login");
+    const linkLogin = section.querySelector("#signup__login_link_to");
     linkLogin.onclick = () => navigateTo("/");
 
     const userEmail = section.querySelector("#userEmail");
@@ -22,7 +22,7 @@ export function attachSignUpEvents(section){
     const helperTextPasswordCheck = section.querySelector("#helper-text-pw-check");
     const helperTextNickname = section.querySelector("#helper-text-nickname");
 
-    const signUpBtn = section.querySelector("#btn-signup"); 
+    const signUpBtn = section.querySelector("#signup__btn"); 
     const userProfileImgInput = section.querySelector("#userProfileImg");
     const userProfileImgInputPreview = section.querySelector("#userProfileImgPreview");
 

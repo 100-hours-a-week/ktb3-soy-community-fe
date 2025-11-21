@@ -9,6 +9,7 @@ export function handleInvalidEmail(helperText, value){
         helperText.className = "helper-text invalid";
         return false;
     } else{
+        helperText.textContent = "";
         helperText.className = "helper-text valid";
         return true;
     }
@@ -28,6 +29,7 @@ export function handleInvalidPassword(helperText, value){
         return false;
     } 
     else {
+        helperText.textContent = "";
         helperText.className = "helper-text valid";
         return true;
     }
