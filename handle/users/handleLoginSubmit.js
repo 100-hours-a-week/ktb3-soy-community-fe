@@ -12,7 +12,7 @@ export async function attachLoginSubmit(email, password, helperText){
 
         if (!response.ok) {
             helperText.textContent = "아이디 또는 비밀번호를 확인해주세요.";
-            helperText.className = "helper-text show";
+            helperText.className = "helper-text invalid";
             return;
         }
 

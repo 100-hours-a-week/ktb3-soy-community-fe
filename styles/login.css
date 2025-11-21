@@ -1,48 +1,61 @@
-.login-box {
-  padding: 40px;
-  border-radius: 10px;
-  width: 450px;
+.login__container{
+    width: 360px;
+    background: #F2D0D0; /* 연한 토마토 속살 컬러 */
+    border-radius: 28px;
+    padding: 40px 32px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.login-box-title {
-    font-weight: 700;
-    font-style: bold;
+.login__title{
+    font-size: 26px;
+    font-weight: bold;
     text-align: center;
+    color: #BF3B3B; /* 익은 토마토 껍질 */
+    margin-bottom: 32px;
 }
 
-.login-box h2 {
-  text-align: center;
-  margin-bottom: 24px;
+.login__field{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.login__field label{
+    font-size: 14px;
+    color: #718C5E; /* 줄기 느낌 */
+    margin-bottom: 8px;
 }
 
-label{
-    font-weight: 700;
-    font-size:15px;
-    line-height: 100%;
-    letter-spacing: 0; 
+.login__field input{
+    padding: 14px;
+    border: 2px solid #ACBFA3; /* 연한 줄기톤 */
+    border-radius: 26px;
+    background: #fff;
+    font-size: 14px;
 }
 
-.helper-text {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    color: #FF0000;
-    font-size: 12px;
-    line-height: 100%;
-    letter-spacing: 0; 
-    display: none;
+.login__btn{
+    width: 100%;
+    padding: 14px;
+    background: #D94848; /* 밝은 토마토 과육 느낌 */
+    color: white;
+    border: none;
+    border-radius: 26px;
+    cursor: pointer;
+    margin-top: 12px;
+    font-size: 15px;
+    transition: 0.2s;
 }
 
-.helper-text.show{
-  display: block;
+.login__btn:disabled {
+    background: #595959; /* 토마토 껍질색 */
 }
 
-.helper-text.hide{
-  display:  none;
+.login__signup_link_to{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #718C5E; /* 줄기색 */
+    cursor: pointer;
+    text-decoration: underline;
 }

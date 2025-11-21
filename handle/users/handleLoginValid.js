@@ -4,10 +4,10 @@ import {attachLoginSubmit} from "./handleLoginSubmit.js";
 export function attachLoginValid(section){
     let activeField = null; // 현재 포커스된 입력 필드 추적용
 
-    const helperText = section.querySelector("#helper-text");
-    const userEmail = section.querySelector("#user-email");
-    const userPassword = section.querySelector("#user-password");
-    const loginBtn = section.querySelector("#btn-login");
+    const helperText = section.querySelector("#login__helper-text");
+    const userEmail = section.querySelector("#login__user-email-input");
+    const userPassword = section.querySelector("#login__user-password-input");
+    const loginBtn = section.querySelector("#login__btn");
 
     userEmail.addEventListener("focus", () => (activeField = "email"));
     userPassword.addEventListener("focus", () => (activeField = "password"));
