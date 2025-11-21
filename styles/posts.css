@@ -1,13 +1,11 @@
-.postListMain {
-  width: 900px;
-  margin: 0 auto;       /* 가로 기준 중앙 정렬 */
+.homeMain {
+  margin: 0 auto;      
   display: flex;
   flex-direction: column;
-  gap: 24px;            /* 배너와 리스트 사이 간격 */
+  gap: 24px;  
 }
 
-/* 내부 요소들도 자동으로 중앙 정렬됨 */
-.postListMain > * {
+.homeMain > * {
   width: 100%;
 }
 
@@ -52,6 +50,13 @@
     overflow: hidden;
     box-shadow: 0 3px 8px rgba(0,0,0,0.05);
     margin-bottom: 6px;
+}
+
+.postItem:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    border-color: #BF3B3B;
+    transition: 0.5s ease-out;
 }
 
 .postItem .image {

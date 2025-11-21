@@ -11,15 +11,15 @@ export function PostListPage(){
     tmpAttachPostListEvents(postItemContainer);
     const floatingBtn = FloatingButton();
 
-    const postListMain = document.createElement("div");
-    postListMain.classList.add("postListMain");
-    postListMain.appendChild(banner);
-    postListMain.appendChild(postItemContainer);
-    postListMain.appendChild(floatingBtn);
+    const main = document.createElement("div");
+    main.classList.add("homeMain");
+    main.appendChild(banner);
+    main.appendChild(postItemContainer);
+    main.appendChild(floatingBtn);
 
     const postListPage = document.createElement("div");
     postListPage.append(header);
-    postListPage.append(postListMain);
+    postListPage.append(main);
 
     return postListPage;
 }

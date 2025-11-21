@@ -1,10 +1,12 @@
 .banner__section{
-  background: #f6cbca;
-  border-radius: 28px;
-  padding: 34px 20px;
-  margin-bottom: 30px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(255, 99, 71, 0.15);
+    max-width: 900px;
+    margin: 0 auto;
+    background: #f6cbca;
+    border-radius: 28px;
+    padding: 34px 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(255, 99, 71, 0.15);
 }
 
 .banner__topic_label{
