@@ -14,7 +14,6 @@ class Renderer{
     render() {
         this.container.innerHTML = "";
         this.container.appendChild(this.domPage());
-        console.log("h");
     }
 
 }

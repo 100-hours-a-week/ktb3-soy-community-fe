@@ -1,4 +1,4 @@
-export function PostItem(){
+export function PostItem(data){
     const postItemImage = PostItemImage();
     const postItemText = PostItemText();
 
@@ -19,7 +19,7 @@ function PostItemImage(){
 
 function PostItemImageData(){
     const img = document.createElement("img");
-    img.class = "data";
+    img.className = "data";
     img.src = `https://picsum.photos/240/300`;
     return img;    
 }
