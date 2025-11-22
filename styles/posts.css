@@ -80,20 +80,46 @@
     flex: 1;
 }
 
-.postItem .text .left .hashtag {
-    background: #F2B6BB;
+.postItem .text .left .label {
     padding: 4px 12px;
     border-radius: 14px;
     font-size: 12px;
-    color: #BF3B3B;
+    color: var(--neutral-text);
     width: fit-content;
     margin-bottom: 8px;
 }
+
+.postItem .text .left .label.food{
+    background-color: var(--topic-label-food);
+}
+
+.postItem .text .left .label.purchase{
+    background-color: var(--topic-label-purchase);
+}
+
+.postItem .text .left .label.contents{
+    background-color: var(--topic-label-contents);
+}
+
+.postItem .text .left .label.music{
+    background-color: var(--topic-label-music);
+}
+
+.postItem .text .left .label.activity{
+    background-color: var(--topic-label-activity);
+}
+
 
 .postItem .text .left .preview-body {
     margin: 0;
     color: #595959;
     line-height: 1.4;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 원하는 줄 수 */
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
 }
 
 .postItem .right {

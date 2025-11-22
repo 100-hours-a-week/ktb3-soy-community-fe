@@ -1,5 +1,5 @@
 import { createPost } from "../../api/postApi.js";
-import { navigateTo } from "../../core/router.js";
+import { navigateTo } from "../core/router.js";
 import { postImageFile } from "../../api/postApi.js";
 import { Dropdown } from "../components/Dropdown.js";
 import { PostsCreateSection } from "../components/posts/PostsCreateSection.js";
@@ -13,12 +13,11 @@ export function PostCreatePage(){
     const dropdownHashtag = Dropdown({
         placeholder: "오늘 칭찬할 일 찾기", 
         options: [
-            { value: "food", label: "#오늘 나를 웃게 만든 한입" },
-            { value: "purchase", label: "#오늘의 득템 순간" },
-            { value: "scene", label: "#오늘 여운 남긴 장면 하나" },
-            { value: "contents", label: "#오늘 발견한 취향 콘텐츠" },
-            { value: "music", label: "#오늘 리듬 탄 플레이리스트" },
-            { value: "activity", label: "#오늘 움직임 속에서 찾은 작은 행복" },
+            { value: "food", label: "#한입의기쁨" },
+            { value: "purchase", label: "#득템로그" },
+            { value: "contents", label: "#인생콘텐츠" },
+            { value: "music", label: "#듣는마약" },
+            { value: "activity", label: "#피지컬파워" }
         ]
     });
 
@@ -42,7 +41,6 @@ async function attachPostCreate(section){
     const submitBtn = section.querySelector("#btn-post-create");
     const helperTextBody = section.querySelector("#helper-text-content");
 
-
     postContent.addEventListener("input", () => {
         const value = postContent.value.trim();
 
@@ -59,8 +57,8 @@ async function attachPostCreate(section){
         event.preventDefault();
 
         const newPost = {
-            "topic": selectedTopic, 
-            "content": postContent.value
+            "topicCode": selectedTopic, 
+            "postContent": postContent.value
         };
 
         const {state, postId} = await createPost(newPost, userId);

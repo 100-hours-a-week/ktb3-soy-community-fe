@@ -1,7 +1,12 @@
 export function PostItem(data){
+    console.log(data);
+    const content = data.content;
+    const topicCode = data.topicCode;
+    const topicLabel = data.topicLabel;
+    const userNickname = data.userNickname;
+    
     const postItemImage = PostItemImage();
-    const postItemText = PostItemText();
-
+    const postItemText = PostItemText({content, topicCode, topicLabel, userNickname});
     const div = document.createElement("div");
     div.classList.add("postItem");
     div.appendChild(postItemImage);
@@ -24,9 +29,9 @@ function PostItemImageData(){
     return img;    
 }
 
-function PostItemText(data){
-    const postItemTextLeft = PostItemTextLeft();
-    const postItemTextRight = PostItemTextRight();
+function PostItemText({content, topicCode, topicLabel, userNickname}){
+    const postItemTextLeft = PostItemTextLeft({content, topicCode, topicLabel});
+    const postItemTextRight = PostItemTextRight(userNickname);
 
     const postItem = document.createElement("div");
     postItem.classList.add("text");
@@ -36,40 +41,41 @@ function PostItemText(data){
     return postItem;
 }
 
-function PostItemTextLeft(){
+function PostItemTextLeft({content, topicCode, topicLabel}){
     const postItemTextLeft = document.createElement("div");
     postItemTextLeft.classList.add("left");
-    postItemTextLeft.appendChild(PostItemHashTag());
-    postItemTextLeft.appendChild(PostItemContentPreview());
+    postItemTextLeft.appendChild(PostItemTopicLabel(topicCode, topicLabel));
+    postItemTextLeft.appendChild(PostItemContentPreview(content));
     return postItemTextLeft;
 }
 
-function PostItemTextRight(){
+function PostItemTextRight(nickname){
     const postItemTextRight = document.createElement("div");
     postItemTextRight.classList.add("right");
-    postItemTextRight.appendChild(PostItemAuthor());
+    postItemTextRight.appendChild(PostItemAuthor(nickname));
     postItemTextRight.appendChild(PostItemLogo());
     return postItemTextRight;  
 }
 
-function PostItemHashTag(){
+function PostItemTopicLabel(topicCode, topicLabel){
     const p = document.createElement("p");
-    p.classList.add("hashtag");
-    p.innerHTML = "# 오늘 잘 먹은 것";
+    p.classList.add("label");
+    p.classList.add(topicCode);
+    p.innerHTML = topicLabel;
     return p;
 }
 
-function PostItemContentPreview(){
+function PostItemContentPreview(content){
     const p = document.createElement("p");
     p.classList.add("preview-body");
-    p.innerHTML = "글 미리보기인데 글이 길어졌을때 짧게 보이는게 중요합니다. 짜잔";
+    p.innerHTML = content;
     return p;
 }
 
-function PostItemAuthor(){
+function PostItemAuthor(nickname){
     const p = document.createElement("p");
     p.classList.add("author");
-    p.innerHTML = "멋쨍이";
+    p.innerHTML = nickname;
     return p;
 }
 
