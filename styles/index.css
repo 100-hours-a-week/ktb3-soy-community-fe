@@ -9,9 +9,10 @@
 @import "../pages/PostDetailPage.css";
 
 @import "./components/dropdown.css";
-@import "./header.css";
 @import "./banner.css";
 
+@import "../components/header/Header.css";
+@import "../components/header/HeaderDropdown.css";
 @import "../components/TopicBadge/TopicBadge.css";
 @import "../components/postcard/PostCard.css";
 @import "../components/postcard/PostContent.css";
