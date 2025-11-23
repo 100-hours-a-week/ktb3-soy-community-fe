@@ -39,23 +39,23 @@ class Router{
         return {pattern, params};
     }
 
-    navigateTo(url) {
-        window.history.pushState(null, null, url);
-
+    renderCurrent(){
         const path = window.location.pathname;
         const { pattern, params } = this.toParamPath(path);
 
         const pageFunc = this.pathPageMap[pattern];
-        if (!pageFunc) {
-            console.warn(`❗ No page matched for pattern: ${pattern}`);
-            return;
-        }
+        if (!pageFunc) return;
 
         const page = params ? pageFunc(params) : pageFunc();
-
         mount(page);
+    }
+    
+    navigateTo(url) {
+        window.history.pushState(null, null, url);
+        this.renderCurrent();
     }
 }
 
 export const router = new Router();
 export const navigateTo = router.navigateTo.bind(router);
+window.addEventListener("popstate", () => router.renderCurrent());
