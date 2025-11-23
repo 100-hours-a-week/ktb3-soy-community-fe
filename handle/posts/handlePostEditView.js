@@ -1,4 +1,4 @@
-import { handlePostDetailView } from "./handlePostDetailView.js";
+import {loadPostDetail} from "./PostEventHandler.js";
 import { PostEdit } from "../../components/posts/PostEdit.js";
 import { handlePostEdit } from "./handlePostEdit.js";
 import {navigateTo} from "../../core/router.js";

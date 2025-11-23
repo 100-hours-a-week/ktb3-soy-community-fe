@@ -19,7 +19,9 @@ class Renderer{
                 const event = key.slice(2).toLowerCase();
                 dom.addEventListener(event, value);
             } else if (key === "class") {
-                dom.classList.add(value);
+                for (const v of value){
+                    dom.classList.add(v);
+                }
             } else {
                 dom[key] = value;
             }

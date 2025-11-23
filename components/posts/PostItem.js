@@ -1,7 +1,7 @@
 import { TopicBadge } from "../TopicBadge/TopicBadge.js";
+import { createDom } from "../../core/renderer.js";
 
 export function PostItem(data){
-    console.log(data);
     const id = data.id;
     const content = data.content;
     const imageUrl = data.postImgUrl;
@@ -9,7 +9,7 @@ export function PostItem(data){
     const topicLabel = data.topicLabel;
     const userNickname = data.userNickname;
     const userProfileImgUrl = data.userProfileImgUrl;
-    console.log(userProfileImgUrl);
+
     const postItemImage = PostItemImage(imageUrl);
     const postItemText = PostItemText({content, topicCode, topicLabel, userNickname, userProfileImgUrl});
     const div = document.createElement("div");
@@ -63,9 +63,7 @@ function PostItemTextRight(nickname, userProfileImgUrl){
 }
 
 function PostItemTopicLabel(topicCode, topicLabel){
-    const badge = TopicBadge(topicLabel);
-    console.log(badge.classList);
-    badge.classList.add(topicCode);
+    const badge = createDom(TopicBadge(topicLabel, topicCode));
     return badge;
 }
 

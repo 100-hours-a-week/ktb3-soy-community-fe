@@ -1,11 +1,9 @@
 import {h} from "../../core/renderer.js";
-import { createDom } from "../../core/renderer.js";
 
-export function TopicBadge(topic){
-    const node = h(
+export function TopicBadge(label, code){
+    return h(
         "span", 
-        {class: "badge"}, 
-        topic
+        {class: ["badge", code]}, 
+        label
     );
-    return createDom(node);
 }
