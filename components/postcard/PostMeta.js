@@ -6,7 +6,7 @@ export function PostMeta(authorNickname, authorProfileImgUrl, createdAt ){
         "div", 
         {class: "post-meta"}, 
         h("img", {class: "author-img", src: authorProfileImgUrl}),
-        h("span", {class: "author-nickname", src: authorNickname}),
+        h("span", {class: "author-nickname"}, authorNickname),
         h("span", {class: "date"}, fromCreatedAt(createdAt))
     );
 }
