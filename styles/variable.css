@@ -1,9 +1,11 @@
 :root {
-  --tomato-main: #F2B6BB;
-  --tomato-bg-light: #F2EDDC;
-  --tomato-soft: #F2D0D0;
-  --neutral-bg: #F2F2F2;
-  --neutral-text: #595959;
+  --main-red: #D94848;
+  --main-green: #129321;
+  --sub-red: #F2D0D0;
+  --sub-red2: #ea9393;
+  --sub-green: #69a26f;
+  --bg: #FFF9F5;
+  --neutral: #595959;
   --topic-label-food: #FBD2A4;
   --topic-label-purchase: #f3b5f6;
   --topic-label-contents: #c3fab9;

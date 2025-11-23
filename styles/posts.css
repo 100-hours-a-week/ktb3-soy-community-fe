@@ -13,7 +13,7 @@
   position: fixed;
   bottom: 32px;
   right: 32px;
-  background: #8FB48C;
+  background: var(--main-green);
   color: white;
   width: 64px;
   height: 64px;
@@ -28,7 +28,7 @@
 }
 
 .floatingBtn__link_to_post_create:hover {
-  background: #BF3B3B;
+  background: var(--main-red);
   transform: translateY(-4px);
 }
 
@@ -46,7 +46,7 @@
     height: 300px;
     background: #FFFFFF;
     border-radius: 20px;
-    border: 2px solid #F2D0D0;
+    border: 2px solid var(--sub-red2);
     overflow: hidden;
     box-shadow: 0 3px 8px rgba(0,0,0,0.05);
     margin-bottom: 6px;
@@ -55,7 +55,7 @@
 .postItem:hover {
     transform: translateY(-6px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-    border-color: #BF3B3B;
+    border-color: var(--main-red);
     transition: 0.5s ease-out;
 }
 

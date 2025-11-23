@@ -6,7 +6,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: #FFF9F5;
+  background: var(--bg);
   font-family: sans-serif;
   min-height: 100vh; /* 전체 배경과 스크롤 유지 */
 }
@@ -42,7 +42,7 @@ body {
     margin-top: 20px;
     text-align: center;
     font-size: 14px;
-    color: #718C5E; /* 줄기색 */
+    color: var(--sub-green);
     cursor: pointer;
     text-decoration: underline;
 }
