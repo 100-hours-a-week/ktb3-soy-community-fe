@@ -1,3 +1,5 @@
+import { TopicBadge } from "../TopicBadge/TopicBadge.js";
+
 export function PostItem(data){
     console.log(data);
     const id = data.id;
@@ -61,11 +63,10 @@ function PostItemTextRight(nickname, userProfileImgUrl){
 }
 
 function PostItemTopicLabel(topicCode, topicLabel){
-    const p = document.createElement("p");
-    p.classList.add("label");
-    p.classList.add(topicCode);
-    p.innerHTML = topicLabel;
-    return p;
+    const badge = TopicBadge(topicLabel);
+    console.log(badge.classList);
+    badge.classList.add(topicCode);
+    return badge;
 }
 
 function PostItemContentPreview(content){

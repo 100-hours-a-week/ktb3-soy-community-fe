@@ -5,8 +5,6 @@ export function PostDetail(data){
     article.className = "post-detail";
 
     article.innerHTML = `
-        <h2>${data.title}</h2>
-
         <div class="post-header-row">
 
             <div class="post-header-left">
