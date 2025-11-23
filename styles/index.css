@@ -8,13 +8,15 @@
 @import "./post-create.css";
 @import "../pages/PostDetailPage.css";
 @import "../pages/EditProfilePage.css";
+@import "../pages/EditPasswordPage.css";
 
 @import "./edit-profile.css";
 
 @import "./components/dropdown.css";
-@import "./banner.css";
-
+@import "../components/modal/Modal.css";
+@import "../components/banner/Banner.css";
 @import "../components/header/Header.css";
+@import "../components/Toast/Toast.css";
 @import "../components/header/HeaderDropdown.css";
 @import "../components/TopicBadge/TopicBadge.css";
 @import "../components/postcard/PostCard.css";

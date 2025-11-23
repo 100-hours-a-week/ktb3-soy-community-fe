@@ -2,7 +2,8 @@ import { isValidNicknameForSignUp } from "../../handle/users/handleSignUpValid.j
 import {uploadNickname, uploadProfileImage} from "../../api/userApi.js";
 import {handleProfileImageChanged} from "../../handle/users/handleProfileImageChanged.js"
 import { handleUserDelete } from "../../handle/users/handleUserDelete.js";
-import { showToast } from "../../components/users/Toast.js";
+import { showToast } from "../../components/toast/Toast.js";
+import { navigateTo } from "../../core/router.js";
 
 export function attachUserEditProfile(section){
     const newUserProfileImgInput = section.querySelector("#userProfileImg");
@@ -39,7 +40,7 @@ export function attachUserEditProfile(section){
             await handleEditUserProfile(newUserProfileImgInput, newUserNickname, helperText);
             if (isEdited){
                 const toastDiv = section.querySelector("#toast");
-                showToast(toastDiv, "수정 완료");
+                await showToast(toastDiv, "수정 완료");
             }
         }
     );

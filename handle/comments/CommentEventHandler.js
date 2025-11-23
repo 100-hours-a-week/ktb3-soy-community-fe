@@ -1,5 +1,5 @@
 import { getComments } from "../../api/commentApi.js";
-import { CommentItem } from "../../components/comments/CommentItem.js";
+import { CommentItem } from "../../components/Comments/CommentItem.js";
 
 class CommentEventHandler{
     constructor(){}

@@ -1,5 +1,5 @@
 
-export function ModalDelete(titleMsg, contentMsg){    
+export function Modal(titleMsg, contentMsg){    
     const modal = document.createElement("div");
     modal.classList.add("modal-wrapper");
 	modal.id = "modal-delete";

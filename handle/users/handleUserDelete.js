@@ -1,9 +1,9 @@
-import {ModalDelete} from "../../components/ModalDelete.js";
+import {Modal} from "../../components/modal/Modal.js";
 import {deleteUser} from "../../api/userApi.js";
 import { navigateTo } from "../../core/router.js";
 
 export function handleUserDelete(titleMsg, contentMsg, userId){
-    ModalDelete(titleMsg, contentMsg);
+    Modal(titleMsg, contentMsg);
 
     const modal = document.getElementById("modal-delete");
 

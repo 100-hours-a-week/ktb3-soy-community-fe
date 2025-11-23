@@ -4,7 +4,7 @@
   left: 50%;
   transform: translateX(-50%);
   padding: 14px 24px;
-  background-color: #7f6aee;
+  background-color: var(--main-red);
   color: white;
   font-size: 14px;
   border-radius: 8px;

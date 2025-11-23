@@ -1,4 +1,4 @@
-import { CommentSection } from "../components/comments/CommentSection.js";
+import { CommentSection } from "../components/Comments/CommentSection.js";
 import { PostCard } from "../components/postcard/PostCard.js";
 import { createDom } from "../core/renderer.js";
 import {loadPostDetail} from "../handle/posts/PostEventHandler.js";

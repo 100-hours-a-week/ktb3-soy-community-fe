@@ -7,15 +7,15 @@ export function EditPassword(){
         <div class="profile-details">
           <label>기존 비밀번호*</label>
           <input type="password" id="userOldPassword" placeholder="기존 비밀번호를 입력하세요">
-          <p class="helper-text" id="helper-text-old-pw">* helper text</p>
+          <p class="helper-text" id="helper-text-old-pw"></p>
 
           <label>비밀번호*</label>
           <input type="password" id="userNewPassword" placeholder="새 비밀번호를 입력하세요">
-          <p class="helper-text" id="helper-text-new-pw">* helper text</p>
+          <p class="helper-text" id="helper-text-new-pw"></p>
 
           <label>비밀번호 확인*</label>
           <input type="password" id="userPasswordCheck" placeholder="새 비밀번호를 한 번 더 입력하세요">
-          <p class="helper-text" id="helper-text-pw-check">* helper text</p>
+          <p class="helper-text" id="helper-text-pw-check"></p>
         </div>
     </form>
 

@@ -28,7 +28,7 @@ body {
 }
 
 .helper-text {
-    font-size: 12px;
+    font-size: 8px;
     color: var(--sub-green);
 }
 
@@ -43,4 +43,26 @@ body {
     color: var(--sub-green);
     cursor: pointer;
     text-decoration: underline;
+}
+
+/* 버튼 */
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  border-radius: 22px;
+  border: none;
+  cursor: pointer;
+  background: var(--main-red2); /* 메인 토마토 */
+  color: #fff;
+  transition: 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--main-red); 
+}
+
+.btn-primary:disabled {
+  background:  var(--neutral); 
+  cursor: not-allowed;
 }

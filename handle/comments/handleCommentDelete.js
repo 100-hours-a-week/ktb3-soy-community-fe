@@ -1,4 +1,4 @@
-import { ModalDelete } from "../../components/ModalDelete.js";
+import { Modal } from "../../components/Modal.js";
 import {deleteComments} from "../../api/commentApi.js"
 import { navigateTo } from "../../core/router.js";
 
@@ -7,7 +7,7 @@ export function handleDeleteComments(postId, commentId){
     const titleMsg = "댓글을 삭제하시겠습니까?";
     const contentMsg = "삭제한 내용은 복구 할 수 없습니다.";
 
-    ModalDelete(titleMsg, contentMsg);
+    Modal(titleMsg, contentMsg);
 
     const modal = document.getElementById("modal-delete");
 

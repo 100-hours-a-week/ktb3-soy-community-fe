@@ -54,25 +54,3 @@
   margin-top: -10px;
   color: #fff; /* 토마토 껍질 */
 }
-
-/* 버튼 */
-.btn-primary {
-  width: 100%;
-  padding: 14px;
-  font-size: 15px;
-  border-radius: 22px;
-  border: none;
-  cursor: pointer;
-  background: #ea4e4e; /* 메인 토마토 */
-  color: #fff;
-  transition: 0.2s;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background: #dc4949; 
-}
-
-.btn-primary:disabled {
-  background: #d35d5de4;
-  cursor: not-allowed;
-}

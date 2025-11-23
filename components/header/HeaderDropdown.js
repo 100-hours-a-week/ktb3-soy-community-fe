@@ -1,5 +1,5 @@
 import { navigateTo } from "../../core/router.js";
-import { Dropdown } from "../dropdown/Dropdown.js";
+import { Dropdown } from "../Dropdown/Dropdown.js";
 
 export function HeaderDropdown(){
     return Dropdown({

@@ -21,13 +21,12 @@
 .signup__form {
     display: flex;
     flex-direction: column;
-    gap: 1px;
 }
 
 /* 라벨 */
 .signup__label {
     font-size: 14px;
-    color: #718C5E; /* 줄기 느낌 */
+    color: var(--main-green); /* 줄기 느낌 */
     margin-bottom: 2px;
 }
 
@@ -35,12 +34,13 @@
 .signup__field {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 /* 입력창 */
 .signup__input {
     padding: 7px;
-    border: 2px solid #ACBFA3; /* 연한 줄기 */
+    border: 2px solid var(--main-green); /* 연한 줄기 */
     border-radius: 26px;
     background: #fff;
     font-size: 14px;
@@ -103,7 +103,7 @@
 }
 
 .signup__btn:disabled {
-    background: #CFA5A5; /* 연한 토마토 */
+    background: var(--neutral); /* 연한 토마토 */
     cursor: not-allowed;
 }
 

@@ -1,7 +1,7 @@
 import { createPost } from "../../api/postApi.js";
 import {navigateTo} from "../core/router.js";
 import { postImageFile } from "../../api/postApi.js";
-import { Dropdown } from "../components/dropdown/Dropdown.js";
+import { Dropdown } from "../components/Dropdown/Dropdown.js";
 import { PostsCreateSection } from "../components/posts/PostsCreateSection.js";
 
 let selectedTopic = null; 
