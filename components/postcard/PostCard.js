@@ -3,8 +3,8 @@ import { PostContent } from "./PostContent.js";
 import {PostImage} from "./PostImage.js";
 import { PostMeta } from "./PostMeta.js";
 import {PostStats} from "./PostStats.js";
-
 import {h} from "../../core/renderer.js";
+import {PostCardDropDown} from "./PostCardDropDown.js";
 
 export function PostCard(data){
     return h(
@@ -17,7 +17,6 @@ export function PostCard(data){
         PostStats({
             like: data.statsLikeCounts, 
             comment: data.statsCommentCounts, 
-            view: data.statsViewCounts}),
-        
+            view: data.statsViewCounts})
     )
 }

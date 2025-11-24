@@ -21,6 +21,7 @@ export function Dropdown({ placeholder, options, className, clickEvents = {}}) {
             const value = item.dataset.value;
 
             btn.textContent = item.textContent + " ▾";
+            btn.classList.add("selected"); 
             menu.classList.remove("show");
 
             div.dispatchEvent(new CustomEvent("select", {

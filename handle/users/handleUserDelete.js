@@ -1,4 +1,4 @@
-import {Modal} from "../../components/modal/Modal.js";
+import {Modal} from "../../components/Modal/Modal.js";
 import {deleteUser} from "../../api/userApi.js";
 import { navigateTo } from "../../core/router.js";
 
