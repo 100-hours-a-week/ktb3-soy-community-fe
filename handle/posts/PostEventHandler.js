@@ -1,6 +1,6 @@
 import { Modal } from "../../components/Modal/Modal.js";
 import { navigateTo } from "../../core/router.js";
-import {getPostDetail, deletePost, editPost, postImageFile} from "../../api/postApi.js"
+import {getPostDetail, deletePost, editPost, postImageFile, likePost, dislikePost} from "../../api/postApi.js"
 
 class PostEventHandler{
     constructor(){}
@@ -54,7 +54,24 @@ class PostEventHandler{
         } else {
             navigateTo(`/posts/${postId}`);
         }
+    }
+
+    async handlePostLike(postId){
+        const btn = document.querySelector(".likeButton");
+        const likeStats = document.querySelector(".postStatsLike");
         
+        let res;
+        const userId = localStorage.getItem("userId");
+        if (btn.classList.contains("liked")){
+            btn.classList.remove("liked");
+            res = await dislikePost(postId, userId);
+            likeStats.textContent = `좋아요 ${res.likeCount}`;
+        } else {
+            btn.classList.add("liked");
+            res = await likePost(postId, userId);
+            likeStats.textContent = `좋아요 ${res.likeCount}`;
+        }
+    
     }
 
 }
@@ -63,3 +80,4 @@ const postEventHandler = new PostEventHandler();
 export const loadPostDetail = postEventHandler.loadPostDetail.bind(postEventHandler);
 export const handlePostDelete = postEventHandler.handlePostDelete.bind(postEventHandler);
 export const handlePostEdit = postEventHandler.handlePostEdit.bind(postEventHandler);
+export const handlePostLike = postEventHandler.handlePostLike.bind(postEventHandler);

@@ -1,7 +1,7 @@
 import {loadPostDetail} from "../handle/posts/PostEventHandler.js";
 import {PostEdit} from "../components/posts/PostEdit.js";
 import { handlePostEdit } from "../handle/posts/PostEventHandler.js";
-import { navigateTo } from "../core/router.js";
+
 export function PostEditPage(postId) {
     const container = document.createElement("section");
     loadPostDetail(postId).then(data => {

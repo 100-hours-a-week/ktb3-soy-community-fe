@@ -1,7 +1,8 @@
 import { h } from "../../core/renderer.js";
+import { handlePostLike } from "../../handle/posts/PostEventHandler.js";
 import { fromCreatedAt } from "../../utils/formatUtils.js";
 
-export function PostMeta(authorNickname, authorProfileImgUrl, createdAt ){
+export function PostMeta(authorNickname, authorProfileImgUrl, createdAt, postId ){
     return h(
         "div", 
         {class: "postMeta"}, 
@@ -9,6 +10,7 @@ export function PostMeta(authorNickname, authorProfileImgUrl, createdAt ){
             h("img", {src: authorProfileImgUrl}),
             h("span", {class: "nickname"}, authorNickname),
         ),
+        h("button", {class: "likeButton", onClick: async() => {await handlePostLike(postId)}}, "❤️"),
         h("span", {class: "createdAt"}, fromCreatedAt(createdAt))
     );
 }
