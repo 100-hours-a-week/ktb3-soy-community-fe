@@ -1,4 +1,4 @@
-import { getComments, createComment, deleteComments } from "../../api/commentApi.js";
+import { getComments, createComment, deleteComments, editComment } from "../../api/commentApi.js";
 import { CommentItem } from "../../components/Comments/CommentItem.js";
 import {createDom} from "../../core/renderer.js";
 import { Modal } from "../../components/Modal/Modal.js"
@@ -20,13 +20,14 @@ class CommentEventHandler{
     async handleCommentCreate(postId){
         const commentTextArea = document.querySelector("#commentContent");
         const commentItemList = document.querySelector("#commentList");
-        console.log(commentItemList);
+        
         const commentContent = commentTextArea.value; 
-
+        console.log(commentItemList, commentContent); 
         const commentData = {"commentContent": commentContent};
         const res = await createComment(commentData, postId);
+        console.log(res);
         if (res.state){
-            const newCommentItem = CommentItem(res, postId);
+            const newCommentItem = CommentItem(postId, res);
             const newCommentItemDom = createDom(newCommentItem);
             commentItemList.appendChild(newCommentItemDom);
             document.querySelector("#commentContent").value = "";
@@ -58,9 +59,73 @@ class CommentEventHandler{
         })
     }
 
+    async attachCommentInputForm(postId){
+        let activeHandler = null;
+        const list = document.querySelector(".commentList");
+        const form = document.querySelector(".commentInputForm");
+
+        const btn = form.querySelector(".btn");
+        const textarea = form.querySelector(".textarea");
+
+        const createEventHandler = async (event) => {
+            event.preventDefault();
+
+            const inputValue = textarea.value; 
+            if (!inputValue) return;
+
+            await this.handleCommentCreate(postId);
+        }
+        activeHandler = createEventHandler;
+        btn.addEventListener("click", activeHandler);
+
+        form.enterEditMode = (item, commentId) => {
+            const commentBody = item.querySelector(".body").textContent;
+            
+            btn.removeEventListener("click", activeHandler);
+
+            textarea.value = commentBody;
+            btn.textContent = "댓글 수정";
+
+            const editEventHandler = async (event) => {
+                event.preventDefault();
+        
+                const newCommentData = {
+                    newCommentContent: textarea.value
+                };
+        
+                const res = await editComment(newCommentData, postId, commentId);
+                if (res){
+                    item.querySelector(".body").textContent = textarea.value;
+        
+                    /*댓글 작성 모드로 바꾸기*/
+                    textarea.value = "";
+                    btn.textContent = "댓글 작성";
+                    
+                    btn.removeEventListener("click", activeHandler);
+                    activeHandler = createEventHandler;
+                    btn.addEventListener("click", activeHandler);
+                }
+            };
+
+            activeHandler = editEventHandler;
+            btn.addEventListener("click", activeHandler);
+
+        }
+    }
+
+    async handleCommentEdit(commentId){
+        const item = document.querySelector(`.commentItem[data-comment-id="${commentId}"]`);
+        console.log(item);
+        const form = document.querySelector(".commentInputForm");
+        await form.enterEditMode(item, commentId);
+
+    }
+
 }
 
 const commentEventHandler = new CommentEventHandler();
 export const loadCommentList = commentEventHandler.loadCommentList.bind(commentEventHandler);
 export const handleCommentCreate = commentEventHandler.handleCommentCreate.bind(commentEventHandler);
 export const handleCommentDelete = commentEventHandler.handleCommentDelete.bind(commentEventHandler);
+export const attachCommentInputForm = commentEventHandler.attachCommentInputForm.bind(commentEventHandler);
+export const handleCommentEdit = commentEventHandler.handleCommentEdit.bind(commentEventHandler);

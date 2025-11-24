@@ -26,7 +26,8 @@ class Renderer{
                 : [];
                 classes.forEach(cls => dom.classList.add(cls));
             } else {
-                dom[key] = value;
+                console.log(key, value);
+                dom.setAttribute(key, value);
             }
         }
 

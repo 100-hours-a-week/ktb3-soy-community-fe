@@ -6,10 +6,10 @@ export function CommentInputForm(postId){
         "div", 
         {class: "commentInputForm"}, 
         h(
-            "textarea", {class: "textarea", id: "commentContent",  placeholder: "댓글을 남겨주세요."}
+            "textarea", {class: "textarea", id: "commentContent", placeholder: "댓글을 남겨주세요."}
         ), 
         h(
-            "button", {class: "btn", onClick: async() => {await handleCommentCreate(postId)}}, "댓글 등록" 
+            "button", {class: "btn", id: "commentCreateBtn"}, "댓글 등록" 
         )
     );
 }

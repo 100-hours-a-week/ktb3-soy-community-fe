@@ -2,7 +2,6 @@ import { fromCreatedAt } from "../../utils/formatUtils.js";
 import {h} from "../../core/renderer.js";
 
 export function CommentHeader(data){
-    console.log(data.userProfileImgUrl);
     return h(
         "div", 
         {class: "commentHeader"}, 
