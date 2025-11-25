@@ -30,17 +30,18 @@ export async function uploadProfileImage(file){
   const formData = new FormData();
   formData.append("file", file);
   const userId = getState("userId");
-  try{
-    const res = await fetch(`http://localhost:8080/api/users/${userId}/profile`, {
+  return fetch(`http://localhost:8080/api/users/${userId}/profile`, {
       method: "POST",
       body: formData
-    });
-    const data = await res.json();
-    setState("userProfileImg", data.profileImgUrl);
-    console.log("사용자 프로필 이미지 업로드 성공");
-  } catch (err) {
-    console.log("사용자 프로필 이미지 업로드 실패 : ", err);
-  }
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("사용자 프로필 이미지 업로드 실패");
+    })
+    .then(() => {
+      console.log("사용자 프로필 이미지 업데이트 완료:");
+      return true;
+    })
+    .catch(err => console.error(err));
 }
 
 export async function uploadNickname(nickname){
@@ -48,24 +49,17 @@ export async function uploadNickname(nickname){
     const postData = {
         "userNickname": nickname
     };
-
-    try{
-        const res = await fetch(`http://localhost:8080/api/users/${userId}/profile`, {
+    
+    return fetch(`http://localhost:8080/api/users/${userId}/profile`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(postData)
-        });
-        if (res.ok) {
-            console.log("닉네임 변경 성공");
+        }).then(res => {
+            if(!res.ok) throw new Error("닉네임 변경 실패");
+        }).then(() => {
             setState("userNickname", nickname);
             return true;
-        } else {
-            return false;
-        }
-    } catch(err){
-        console.err("닉네임 변경 실패:", err);
-        return false;
-    }
+        }).catch(err => console.error(err));
 }
 
 export async function deleteUser(userId){
