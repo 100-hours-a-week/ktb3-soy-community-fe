@@ -1,6 +1,6 @@
 .header {
   background: #D94848;
-  padding: 18px 24px;
+  padding: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,13 +9,9 @@
   margin-bottom: 24px;
 }
 
-.header__title {
-  margin: 0;
-  font-size: 24px;
+.header .title {
+  margin-left: 5px;
+  font-size: 22px;
   font-weight: 800;
   letter-spacing: -0.5px;
-}
-
-.header__profile {
-  font-size: 34px;
 }

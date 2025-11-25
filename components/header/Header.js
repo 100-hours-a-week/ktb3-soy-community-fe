@@ -13,7 +13,7 @@ export function Header() {
 
 function HeaderTitle(){
     const title = document.createElement("h1");
-    title.class = "header__title";
+    title.classList.add("title");
     title.innerHTML = "Dancing Tomato Club";
     return title;
 }

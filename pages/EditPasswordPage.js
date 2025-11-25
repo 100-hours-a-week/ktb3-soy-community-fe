@@ -1,4 +1,5 @@
-import {EditPassword} from "../components/users/EditPassword.js"
+import {EditPassword} from "../components/users/EditPassword.js";
+import {FloatingButton} from "../components/FloatingButton/FloatingButton.js";
 import { attachEditPassword } from "../handle/users/UserEventHandler.js";
 
 export function EditPasswordPage(){
@@ -6,6 +7,7 @@ export function EditPasswordPage(){
     div.classList.add("editPasswordPage");
     const section = EditPassword();
     attachEditPassword(section);
-    div.appendChild(section);
+    const floatingBtn = FloatingButton({value: "🏠", url: "/posts"});
+    div.appendChild(floatingBtn);
     return div;
 }

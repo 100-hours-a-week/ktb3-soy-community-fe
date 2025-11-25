@@ -1,6 +1,7 @@
 import {loadPostDetail} from "../handle/posts/PostEventHandler.js";
 import {PostEdit} from "../components/posts/PostEdit.js";
 import { handlePostEdit } from "../handle/posts/PostEventHandler.js";
+import { FloatingButton } from "../components/FloatingButton/FloatingButton.js";
 
 export function PostEditPage(postId) {
     const container = document.createElement("section");
@@ -12,6 +13,9 @@ export function PostEditPage(postId) {
         });
         container.appendChild(postEditCard);
     });
+
+    const floatingBtn = FloatingButton({value: "🏠", url: "/posts"});
+    container.appendChild(floatingBtn);
 
     return container;
 }

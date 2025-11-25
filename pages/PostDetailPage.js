@@ -5,6 +5,7 @@ import {loadPostDetail} from "../handle/posts/PostEventHandler.js";
 import { PostCardDropDown } from "../components/postcard/PostCardDropDown.js";
 import {attachCommentInputForm, loadCommentList} from "../handle/comments/CommentEventHandler.js";
 import { getState } from "../core/GlobalStore.js";
+import { FloatingButton } from "../components/FloatingButton/FloatingButton.js";
 
 export function PostDetailPage(postId) {
     const container = document.createElement("section");
@@ -27,5 +28,9 @@ export function PostDetailPage(postId) {
     }).then(async () => {
         await attachCommentInputForm(postId);
     })
+
+    const floatingBtn = FloatingButton({value: "🏠", url: "/posts"});
+    container.appendChild(floatingBtn);
+
     return container;
 }

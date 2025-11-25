@@ -4,7 +4,7 @@ import {getState} from "../core/GlobalStore.js";
 import { postImageFile } from "../../api/postApi.js";
 import { Dropdown } from "../components/Dropdown/Dropdown.js";
 import { PostsCreateSection } from "../components/posts/PostsCreateSection.js";
-
+import { FloatingButton } from "../components/FloatingButton/FloatingButton.js";
 let selectedTopic = null; 
 
 export function PostCreatePage(){
@@ -32,6 +32,9 @@ export function PostCreatePage(){
     div.appendChild(dropdownHashtag);
     div.appendChild(postCreate);
     div.classList.add("post-create-container");
+
+    const floatingBtn = FloatingButton({value: "🏠", url: "/posts"});
+    div.appendChild(floatingBtn);
 
     return div;
 }
@@ -66,12 +69,16 @@ async function attachPostCreate(section){
         const {state, postId} = await createPost(newPost, userId);
         if (state){
             console.log("게시글 작성 완료");
-            await navigateTo("/posts");
+
+            if (postImgFile.files.length > 0){
+                const file = postImgFile.files[0];
+                await postImageFile(postId, file);
+                navigateTo("/posts");
+            } else{
+                navigateTo("/posts");
+            }
         } 
     
-        if (postImgFile.files.length > 0){
-            const file = postImgFile.files[0];
-            await postImageFile(postId, file);
-        }
+
     });
 }

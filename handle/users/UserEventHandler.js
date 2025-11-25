@@ -135,7 +135,7 @@ class UserEventHandler{
         const formData = new FormData();
         formData.append("userProfileImg", file);
 
-        const imageUrl = await convertFileToDataURL(file);
+        const imageUrl = await this.convertFileToDataURL(file);
         return imageUrl;
     };
 

@@ -1,13 +1,13 @@
 import { FeedSection } from "../components/posts/FeedSection.js";
 import {Header} from "../components/Header/Header.js";
 import { Banner } from "../components/Banner/Banner.js";
-import { FloatingButton } from "../components/FloatingButton.js";
+import { FloatingButton } from "../components/FloatingButton/FloatingButton.js";
 
 export function PostListPage(){
     const header = Header();
     const banner = Banner();
     const feedSection = FeedSection();
-    const floatingBtn = FloatingButton();
+    const floatingBtn = FloatingButton({value: "+", url: "/posts/create"});
 
     const main = document.createElement("div");
     main.classList.add("homeMain");
