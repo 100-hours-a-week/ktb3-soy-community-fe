@@ -44,9 +44,8 @@ class PostEventHandler{
         const postImgFile = document.querySelector("#post-img");
 
         const newPost = {"postContent": postBody};
-        const userId = getState("userId");
 
-        await editPost(newPost, postId, userId);
+        await editPost(newPost, postId);
         
         if (postImgFile.files.length > 0){
             const file = postImgFile.files[0];

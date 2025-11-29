@@ -1,14 +1,11 @@
 import { setState } from "../core/GlobalStore.js";
 
-export async function createPost(postData, userId){
+export async function createPost(formData){
     try{
-        const response = await fetch(`http://localhost:8080/api/posts?userId=${userId}`, {
+        const response = await fetch(`http://localhost:8080/api/posts`, {
                 method: "POST", 
                 credentials: "include",
-                headers: {
-                  "Header": "application/json",
-                  "Content-Type": "application/json"},
-                body: JSON.stringify(postData)
+                body: formData
             });
         
         if (!response.ok) alert("게시글 등록 실패");
@@ -49,15 +46,16 @@ export async function getPostDetail(postId, userId){
   }
 }
 
-export async function editPost(postData, postId, userId){
-  const editPostUrl = `http://localhost:8080/api/posts/${postId}?userId=${userId}`;
+export async function editPost(postData, postId){
+  const editPostUrl = `http://localhost:8080/api/posts/${postId}`;
 
   try{
       const response = await fetch(editPostUrl, {
                 method: "PATCH", 
+                credentials: "include",
                 headers: {
-                  "Header": "application/json",
-                  "Content-Type": "application/json"},
+                  "Content-Type": "application/json"
+                },
                 body: JSON.stringify(postData)});
 
       if (!response.ok){
@@ -84,31 +82,14 @@ export async function deletePost(postId, userId){
   }
 }
 
-export async function uploadImageFile(postId, file){
-  const formData = new FormData();
-  formData.append("file", file);
-
-  fetch(`http://localhost:8080/api/posts/${postId}/profile`, {
-    method: "POST",
-    body: formData
-  })
-    .then(res => {
-      if (!res.ok) throw new Error("이미지 업로드 실패");
-      return res.json();
-    })
-    .then(data => {
-      console.log("이미지 업데이트 완료:", data);
-      setState("userProfileImg", data.profileImgUrl);
-    })
-    .catch(err => console.error(err));
-}
 
 export async function postImageFile(postId, file){
   const formData = new FormData();
   formData.append("file", file);
 
-  return fetch(`http://localhost:8080/api/posts/${postId}`, {
+  return fetch(`http://localhost:8080/api/posts/${postId}/image`, {
     method: "POST",
+    credentials: "include",
     body: formData
   })
     .then(res => {

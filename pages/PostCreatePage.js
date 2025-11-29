@@ -61,24 +61,24 @@ async function attachPostCreate(section){
     submitBtn.addEventListener("click", async (event) => {
         event.preventDefault();
 
+        const formData = new FormData();
+        
         const newPost = {
             "topicCode": selectedTopic, 
             "postContent": postContent.value
         };
 
-        const {state, postId} = await createPost(newPost, userId);
-        if (state){
-            console.log("게시글 작성 완료");
+        formData.append(
+            "data",
+            new Blob([JSON.stringify(newPost)], { type: "application/json" })
+        );
 
-            if (postImgFile.files.length > 0){
-                const file = postImgFile.files[0];
-                await postImageFile(postId, file);
-                navigateTo("/posts");
-            } else{
-                navigateTo("/posts");
-            }
-        } 
-    
-
+        if (postImgFile && postImgFile.files.length > 0) {
+            formData.append("postImgFile", postImgFile.files[0]);
+        }
+        
+        const {state, postId} = await createPost(formData);
+        console.log("게시글 작성 완료");
+        navigateTo("/posts");
     });
 }
