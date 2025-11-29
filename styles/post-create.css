@@ -1,98 +1,56 @@
-/* 게시글 작성 전체 영역 */
+.post-create-container {
+    margin: 0 auto;
+    width: 800px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 100px;
+    gap: 20px;
+}
+
 .post-create {
-  width: 600px;
-  margin: 80px auto;
-  padding: 32px;
-  background-color: #fff;
-  border-radius: 12px;
+  width: 100%;
+  background: #ea4e4e;
+  padding: 32px 28px;
+  border-radius: 26px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  font-family: sans-serif;
 }
 
-.post-create h2 {
-  text-align: center;
-  margin-bottom: 32px;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-/* form 기본 구조 */
 .post-create form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
-/* 라벨 스타일 */
 .post-create label {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 4px;
+  font-size: 14px;
+  color: white;
+  font-weight: 600;
 }
 
-/* input & textarea 공통 */
-.post-create input[type="text"],
 .post-create textarea {
-  width: 100%;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 15px;
-  background-color: #fafafa;
-  transition: border 0.2s ease;
-}
-
-.post-create input[type="text"]:focus,
-.post-create textarea:focus {
+  height: 120px;
+  padding: 14px;
+  border-radius: 18px;
+  resize: none;
+  font-size: 14px;
+  border: 2px solid #F2D0D0; /* 연한 토마토 톤 */
+  background: #fff;
   outline: none;
-  border-color: #b197fc; /* 연보라 */
 }
 
-/* textarea 크기 */
-/* .post-create textarea {
-  min-height: 180px;
-  resize: vertical;
-} */
+.post-create textarea:focus {
+  border-color: #F2B6BB; /* 포커스되면 밝은 토마토 */
+}
 
-/* 파일 업로드 input */
 .post-create input[type="file"] {
-  margin-top: 4px;
+  padding: 8px 0;
   font-size: 14px;
 }
 
-
-/* 버튼 */
-.post-create .btn-primary {
-  width: 100%;
-  margin-top: 16px;
-  padding: 14px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  background-color: #7F6AEE; 
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.post-create .btn-primary:disabled {
-  background-color: #ACA0EB; 
-}
-
 .helper-text {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    color: #FF0000;
-    font-size: 12px;
-    line-height: 100%;
-    letter-spacing: 0; 
-    display: none;
-}
-
-.helper-text.show{
-  display: block;
-}
-
-.helper-text.hide{
-  display:  none;
+  font-size: 12px;
+  margin-top: -10px;
+  color: #fff; /* 토마토 껍질 */
 }

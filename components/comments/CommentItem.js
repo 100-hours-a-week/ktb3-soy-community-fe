@@ -1,20 +1,29 @@
-import { fromCreatedAt } from "../../utils/formatUtils.js";
+import {h} from "../../core/Renderer.js";
+import { getState } from "../../core/GlobalStore.js";
 
-export function CommentItem(data) {
-    const item = document.createElement("div");
-    item.classList.add("comment-item");
-    item.innerHTML = `
-        <div class="comment-header">
-            <img class="profile-img" src="${data.userProfileImgUrl}">
-            <span class="author-name">${data.userNickname}</span>
-            <span class="comment-date">${fromCreatedAt(data.createdAt)}</span>
-        </div>
+import { handleCommentDelete, handleCommentEdit } from "../../handle/comments/CommentEventHandler.js";
+import {CommentHeader} from "./CommentHeader.js";
 
-        <p class="comment-body">${data.body}</p>
+export function CommentItem(postId, data) {
+    const isEditable = data.userNickname === getState("userNickname");
 
-        <button class="btn-comment-edit">수정</button>
-        <button class="btn-comment-delete">삭제</button>
-    `;
+    const children = [
+        CommentHeader(data),
+        h("p", {class: "body"}, data.body)
+    ];
 
-    return item;
+    if (isEditable){
+        children.push(
+            h("div", {class: "btns"},
+                h("button", {class: "btnEdit", onClick: async() => {
+                    await handleCommentEdit(data.id);}}, "수정"), 
+                h("button", {class: "btnDelete", onClick: async () => await handleCommentDelete(postId, data.id)}, "삭제"))
+        );
+    }
+
+    return h(
+        "div", 
+        {class: "commentItem", "data-comment-id": data.id}, 
+        ...children
+    );
 }

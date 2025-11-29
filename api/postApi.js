@@ -1,3 +1,5 @@
+import { setState } from "../core/GlobalStore.js";
+
 export async function createPost(postData, userId){
     try{
         const response = await fetch(`http://localhost:8080/api/posts?userId=${userId}`, {
@@ -90,7 +92,7 @@ export async function uploadImageFile(postId, file){
     })
     .then(data => {
       console.log("이미지 업데이트 완료:", data);
-      localStorage.setItem("userProfileImg", data.profileImgUrl);
+      setState("userProfileImg", data.profileImgUrl);
     })
     .catch(err => console.error(err));
 }
@@ -99,7 +101,7 @@ export async function postImageFile(postId, file){
   const formData = new FormData();
   formData.append("file", file);
 
-  fetch(`http://localhost:8080/api/posts/${postId}`, {
+  return fetch(`http://localhost:8080/api/posts/${postId}`, {
     method: "POST",
     body: formData
   })

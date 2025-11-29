@@ -1,0 +1,22 @@
+.floatingBtn__link_to_post_create {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: var(--main-green);
+  color: white;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  transition: 0.2s;
+}
+
+.floatingBtn__link_to_post_create:hover {
+  background: var(--main-red);
+  transform: translateY(-4px);
+}

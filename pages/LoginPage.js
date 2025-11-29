@@ -1,16 +1,21 @@
 import { SignUpLink } from "../components/users/SignUpLink.js";
 import { Login } from "../components/users/Login.js";
-import {attachLoginValid } from "../handle/users/handleLoginValid.js";
-import { setNewDropDown } from "../handle/RenderHeader.js";
+import {attachLoginValid } from "../handle/users/UserValidationHandler.js";
 
 export function LoginPage(){
     const login = Login();
     attachLoginValid(login);
-    
     const signUpLink = SignUpLink();
+    login.appendChild(signUpLink);
 
-    const div = document.createElement("div");
-    div.appendChild(login);
-    div.appendChild(signUpLink);
-    return div;
+    const loginContainer = document.createElement("div");
+    loginContainer.classList.add("login__container");
+    loginContainer.appendChild(login);
+    loginContainer.append(signUpLink);
+
+    const loginPage = document.createElement("div");
+    loginPage.classList.add("page-center");
+    loginPage.appendChild(loginContainer);
+
+    return loginPage;
 }

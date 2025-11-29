@@ -1,3 +1,5 @@
+import {getState, setState} from "../core/GlobalStore.js"
+
 export async function loginUser(userData) {
   return await fetch("http://localhost:8080/api/users/auth", {
     method: "POST",
@@ -16,7 +18,7 @@ export async function postSignUpData(userData){
         body: JSON.stringify(userData)
     });
     const data = await res.json();
-    localStorage.setItem("userId", data.data.userId);
+    setState("userId", data.data.userId);
     console.log("회원가입 성공", data);
   } catch (err) {
     console.error("회원 가입 실패: ", err);
@@ -27,43 +29,37 @@ export async function postSignUpData(userData){
 export async function uploadProfileImage(file){
   const formData = new FormData();
   formData.append("file", file);
-  const userId = localStorage.getItem("userId");
-  try{
-    const res = await fetch(`http://localhost:8080/api/users/${userId}/profile`, {
+  const userId = getState("userId");
+  return fetch(`http://localhost:8080/api/users/${userId}/profile`, {
       method: "POST",
       body: formData
-    });
-    const data = await res.json();
-    localStorage.setItem("userProfileImg", data.profileImgUrl);
-    console.log("사용자 프로필 이미지 업로드 성공");
-  } catch (err) {
-    console.log("사용자 프로필 이미지 업로드 실패 : ", err);
-  }
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("사용자 프로필 이미지 업로드 실패");
+    })
+    .then(() => {
+      console.log("사용자 프로필 이미지 업데이트 완료:");
+      return true;
+    })
+    .catch(err => console.error(err));
 }
 
 export async function uploadNickname(nickname){
-    const userId = localStorage.getItem("userId");
+    const userId = getState("userId");
     const postData = {
         "userNickname": nickname
     };
-
-    try{
-        const res = await fetch(`http://localhost:8080/api/users/${userId}/profile`, {
+    
+    return fetch(`http://localhost:8080/api/users/${userId}/profile`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(postData)
-        });
-        if (res.ok) {
-            console.log("닉네임 변경 성공");
-            localStorage.setItem("userNickname", nickname);
+        }).then(res => {
+            if(!res.ok) throw new Error("닉네임 변경 실패");
+        }).then(() => {
+            setState("userNickname", nickname);
             return true;
-        } else {
-            return false;
-        }
-    } catch(err){
-        console.err("닉네임 변경 실패:", err);
-        return false;
-    }
+        }).catch(err => console.error(err));
 }
 
 export async function deleteUser(userId){

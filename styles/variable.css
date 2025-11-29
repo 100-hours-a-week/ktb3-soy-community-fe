@@ -1,0 +1,16 @@
+:root {
+  --main-red: #D94848;
+  --main-red2: #d94848ca;
+  --main-green: #129321;
+  --main-red-tomato: #ea4e4e;
+  --sub-red: #F2D0D0;
+  --sub-red2: #ea9393;
+  --sub-green: #69a26f;
+  --bg: #FFF9F5;
+  --neutral: #595959;
+  --topic-label-food: #FBD2A4;
+  --topic-label-purchase: #f3b5f6;
+  --topic-label-contents: #c3fab9;
+  --topic-label-music: #FFE425;
+  --topic-label-activity: #87C6DC;
+}

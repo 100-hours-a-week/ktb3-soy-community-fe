@@ -1,128 +1,121 @@
-/* 회원가입 전체 박스 */
-.signup-box {
-  width: 450px;
-  margin: 80px auto; /* 상단 여백 + 중앙 정렬 */
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* 컨테이너 */
+.signup__container {
+    width: 380px;
+    max-height: 700px;
+    background: #F2D0D0; /* 연한 토마토 톤 */
+    border-radius: 28px;
+    padding: 40px 32px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* 제목 */
-.signup-box h2 {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 24px;
+.signup__title {
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    color: #BF3B3B; /* 진한 토마토 */
+    margin-bottom: 10px;
 }
 
 /* 폼 */
-.signup-box form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.signup__form {
+    display: flex;
+    flex-direction: column;
 }
-
-/* 전체 프로필 이미지 박스 */
-.profile-img {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 32px;
-}
-
-/* helper text */
-.profile-img .helper-text {
-  width: 100%;
-  margin-bottom: 12px;
-  font-size: 14px;
-  color: #d9534f; /* 빨간 톤 */
-  text-align: left;
-}
-
-/* 실제 input(type=file)은 숨김 */
-#userProfileImg {
-  display: none;
-}
-
-/* 실제 클릭되는 동그란 영역 */
-.profile-img-preview {
-  width: 200px;
-  height: 200px;
-  background-color: #d9d9d9;
-  border-radius: 50%;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-  overflow: hidden; /* 이미지가 원형 안에 들어가도록 */
-
-  position: relative;
-}
-
-/* 기본 이미지 (default_profile.png) */
-#userProfileImgPreview {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* 기본 이미지 위에 + 아이콘처럼 보이는 효과 */
-.profile-img-preview::after {
-  content: "+";
-  position: absolute;
-  color: #666;
-  font-size: 48px;
-  font-weight: 300;
-  pointer-events: none;
-}
-
 
 /* 라벨 */
-.signup-box label {
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 4px;
-  display: block;
-  color: #111;
+.signup__label {
+    font-size: 14px;
+    color: var(--main-green); /* 줄기 느낌 */
+    margin-bottom: 2px;
 }
 
-.signup-box input:focus {
-  border-color: #7f6aee;
+/* 입력필드 그룹 */
+.signup__field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* 헬퍼 텍스트 */
-.helper-text {
-  font-size: 12px;
-  color: #ff0000;
-  margin-top: 2px;
-  line-height: 100%;
-  display: none;
+/* 입력창 */
+.signup__input {
+    padding: 7px;
+    border: 2px solid var(--main-green); /* 연한 줄기 */
+    border-radius: 26px;
+    background: #fff;
+    font-size: 14px;
+    transition: 0.2s;
 }
 
-/* helper-text가 보여질 때 */
-.helper-text.show {
-  display: block;
+.signup__input:focus {
+    border-color: #BF3B3B;
+    outline: none;
 }
 
-/* 프로필 섹션 */
-.signup-box .profile-details {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 12px;
-  margin-bottom: 26px;
+/* 프로필 이미지 영역 */
+.signup__profile-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 12px;
+    position: relative;
 }
 
-/* 하단 로그인 링크 */
-.link {
-  font-size: 14px;
-  text-align: center;
-  margin-top: 16px;
-  cursor: pointer;
+/* 실제 input 숨기기 */
+.signup__profile-file {
+    display: none;
 }
 
+/* 이미지 미리보기 라벨 */
+.signup__profile-img-preview {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid #ACBFA3;
+    transition: 0.2s;
+}
+
+.signup__profile-img-preview:hover {
+    border-color: #BF3B3B;
+}
+
+/* 이미지 태그 */
+.signup__profile-img-tag {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 기본 버튼 */
+.signup__btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    background: #BF3B3B;
+    border: none;
+    color: white;
+    border-radius: 26px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.signup__btn:disabled {
+    background: var(--neutral); /* 연한 토마토 */
+    cursor: not-allowed;
+}
+
+.signup__btn:hover:not(:disabled) {
+    background: #D94848;
+}
+
+/* 로그인 링크 */
+.signup__login_link_to {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 14px;
+    color: #718C5E;
+    cursor: pointer;
+}

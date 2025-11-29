@@ -1,12 +1,9 @@
-import { navigateTo } from "../../router/router.js";
+import { navigateTo } from "../../core/Router.js";
 
 export function SignUpLink(){
-    const paragraph = document.createElement("p");
-    paragraph.className = "link";
-
-    paragraph.innerHTML = `
-        <a id="link-sign-up">회원가입 하러가기</a>
-    `
-    paragraph.onclick = () => navigateTo("/signup");
-    return paragraph;
+    const div = document.createElement("div");
+    div.classList.add("link_to");
+    div.innerHTML = `Join the club`;
+    div.onclick = () => navigateTo("/signup");
+    return div;
 }

@@ -1,8 +1,17 @@
-import { signUp } from "../components/users/signUp.js";
-import { attachSignUpEvents } from "../handle/users/handleSignUpEvents.js";
+import { SignUp } from "../components/users/SignUp.js";
+import { attachSignUpEvents } from "../handle/users/UserEventHandler.js";
 
 export function SignUpPage(){
-    const section = signUp();
-    attachSignUpEvents(section);
-    return section;
+    const signUp = SignUp();
+    attachSignUpEvents(signUp);
+
+    const signUpContainer = document.createElement("div");
+    signUpContainer.classList.add("signup__container");
+    signUpContainer.appendChild(signUp);
+
+    const signUpPage = document.createElement("div");
+    signUpPage.classList.add("page-center");
+    signUpPage.appendChild(signUpContainer);
+
+    return signUpPage;
 }
