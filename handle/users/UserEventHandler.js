@@ -146,25 +146,25 @@ class UserEventHandler{
 
 
     async handleSignUpSubmit(section, userEmail, userPassword, userPasswordCheck, userNickname){
-        const email = userEmail.value;
-        const password = userPassword.value;
-        const nickname = userNickname.value;
-        const userData = {
-            userEmail: email,
-            userPassword: password,
-            userNickname: nickname
+        const formData = new FormData();
+
+        const data = {
+            userEmail: userEmail.value,
+            userPassword: userPassword.value,
+            userNickname: userNickname.value
         };
 
-        console.log(userData);
-        
-        await postSignUpData(userData);
-    
+        formData.append(
+            "data",
+            new Blob([JSON.stringify(data)], { type: "application/json" })
+        );
+
         const profileImgInput = section.querySelector("#userProfileImg");
-    
         if (profileImgInput && profileImgInput.files.length > 0) {
-            const file = profileImgInput.files[0];
-            await uploadProfileImage(file);
+            formData.append("profileImage", profileImgInput.files[0]);
         }
+
+        postSignUpData(formData);
     
         setState("isLogin", "false");
     

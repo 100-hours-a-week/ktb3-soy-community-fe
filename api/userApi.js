@@ -23,13 +23,12 @@ export async function logout() {
     return res;
 }
 
-export async function postSignUpData(userData){
+export async function postSignUpData(signUpData){
     try{
         const res = await fetch("http://localhost:8080/api/users", {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData)
+        body: signUpData
     });
     const data = await res.json();
     setState("userId", data.data.userId);
@@ -76,9 +75,9 @@ export async function uploadNickname(nickname){
         }).catch(err => console.error(err));
 }
 
-export async function deleteUser(userId){
+export async function deleteUser(){
     try{
-        const res = await fetch(`http://localhost:8080/api/users/me`, {
+        const res = await fetch(`http://localhost:8080/api/users`, {
             method: "Delete",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
