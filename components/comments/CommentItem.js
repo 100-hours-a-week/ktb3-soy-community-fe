@@ -4,8 +4,8 @@ import { getState } from "../../core/GlobalStore.js";
 import { handleCommentDelete, handleCommentEdit } from "../../handle/comments/CommentEventHandler.js";
 import {CommentHeader} from "./CommentHeader.js";
 
-export function CommentItem(postId, data) {
-    const isEditable = data.userNickname === getState("userNickname");
+export function CommentItem(postId, data, isCreated) {
+    const isEditable = data.userId === getState("userId") || isCreated;
 
     const children = [
         CommentHeader(data),

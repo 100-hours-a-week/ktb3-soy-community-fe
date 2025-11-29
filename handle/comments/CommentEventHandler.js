@@ -27,9 +27,9 @@ class CommentEventHandler{
         console.log(commentItemList, commentContent); 
         const commentData = {"commentContent": commentContent};
         const res = await createComment(commentData, postId);
-        console.log(res);
         if (res.state){
-            const newCommentItem = CommentItem(postId, res);
+            const isCreated = true;
+            const newCommentItem = CommentItem(postId, res, isCreated);
             const newCommentItemDom = createDom(newCommentItem);
             commentItemList.appendChild(newCommentItemDom);
             document.querySelector("#commentContent").value = "";
@@ -51,7 +51,7 @@ class CommentEventHandler{
         btnCancel.addEventListener("click", 
             () => modal.remove()
         );
-        
+
         btnConfirm.addEventListener("click", async () => {
             await deleteComments(postId, commentId);
             modal.remove();
