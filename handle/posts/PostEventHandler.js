@@ -7,8 +7,7 @@ class PostEventHandler{
     constructor(){}
 
     loadPostDetail(postId){
-        const userId = getState("userId");
-        return getPostDetail(postId, userId).then(data => data)
+        return getPostDetail(postId).then(data => data)
         .catch(error => {
             console.error(error)
         });
@@ -59,7 +58,7 @@ class PostEventHandler{
         const likeStats = document.querySelector(".postStatsLike");
         
         let res;
-        
+
         if (btn.classList.contains("liked")){
             btn.classList.remove("liked");
             res = await dislikePost(postId);

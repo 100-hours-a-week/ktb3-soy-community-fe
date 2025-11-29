@@ -15,7 +15,7 @@ export function PostDetailPage(postId) {
         console.log(data);
         const card = PostCard(data);
         cardDom = createDom(card);
-        if (data.userNickname === getState("userNickname")){
+        if (data.userId === getState("userId")){
             const cardDrop = PostCardDropDown(postId);
             cardDom.appendChild(cardDrop);
         }

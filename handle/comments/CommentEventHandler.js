@@ -51,11 +51,9 @@ class CommentEventHandler{
         btnCancel.addEventListener("click", 
             () => modal.remove()
         );
-    
-        const userId = getState("userId");
-    
+        
         btnConfirm.addEventListener("click", async () => {
-            await deleteComments(postId, commentId, userId);
+            await deleteComments(postId, commentId);
             modal.remove();
             navigateTo(`/posts/${postId}`);
         })
