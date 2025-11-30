@@ -25,7 +25,6 @@ export function PostCreatePage(){
 
     dropdownHashtag.addEventListener("select", (e) => {
         selectedTopic = e.detail.value;
-        console.log("선택된 해시태그:", selectedTopic);
     });
 
     const div = document.createElement("div");
@@ -78,7 +77,7 @@ async function attachPostCreate(section){
         }
         
         await createPost(formData);
-        console.log("게시글 작성 완료");
+        // console.log("게시글 작성 완료");
         navigateTo("/posts");
     });
 }

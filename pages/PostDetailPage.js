@@ -12,7 +12,6 @@ export function PostDetailPage(postId) {
     container.classList.add("postDetailPage");
     let cardDom = null;
     loadPostDetail(postId).then(data => {    
-        console.log(data);
         const card = PostCard(data);
         cardDom = createDom(card);
         if (data.userId === getState("userId")){
