@@ -1,7 +1,6 @@
 import { 
     uploadNickname,
     uploadProfileImage,
-    patchNewPassword,
     deleteUser
 } from "../../api/userApi.js";
 import { navigateTo } from "../../core/Router.js";
@@ -249,8 +248,16 @@ class UserEventHandler{
     }
     
     async handleEditPassword(userOldPassword, userNewPassword){
-        const userId = getState("userId");
-        await patchNewPassword(userId, userOldPassword, userNewPassword);
+        const inputData = {
+            "userOldPassword": userOldPassword.value, 
+            "userNewPassword": userNewPassword.value
+        };
+
+        await apiFetch({
+            path: "/api/users/me/password",
+            methodType: "PATCH",
+            bodyData: inputData
+        })
     }
     
     async attachEditPassword(section){
