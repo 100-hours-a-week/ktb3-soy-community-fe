@@ -4,8 +4,9 @@ class AdminEventHandler{
     constructor(){}
 
     async loadAllUserTable(div){
-        const res = await findAllMembers();
-        const data = await res.json();
+        const response = await findAllMembers();
+        if (!response.success) return;
+        const data = response.data;
         const table = this.createTable(data.userInfoList);
         div.appendChild(table);
     }
