@@ -28,7 +28,10 @@ class UserEventHandler{
         };
 
         try {
-            const response = await loginUser(userData);
+            const response = await loginUser({
+                email: email.value,
+                password: password.value
+            });
 
             if (!response.ok) {
                 helperText.textContent = "아이디 또는 비밀번호를 확인해주세요.";
@@ -37,11 +40,13 @@ class UserEventHandler{
             }
 
             const data = await response.json();
-            setState("userId", data.data.userId);
-            setState("userProfileImg", data.data.userProfileImgUrl);
+            console.log(data);
+            setState("userId", data.userId);
+            setState("userProfileImg", data.userProfileImgUrl);
             setState("userEmail", email.value);
-            setState("userNickname", data.data.userNickname);
+            setState("userNickname", data.userNickname);
             setState("isLogin", "true");
+            setState("userRole", data.role);
             
             navigateTo("/posts");
             
@@ -141,23 +146,25 @@ class UserEventHandler{
 
 
     async handleSignUpSubmit(section, userEmail, userPassword, userPasswordCheck, userNickname){
-        const email = userEmail.value;
-        const password = userPassword.value;
-        const nickname = userNickname.value;
-        const userData = {
-            userEmail: email,
-            userPassword: password,
-            userNickname: nickname
+        const formData = new FormData();
+
+        const data = {
+            userEmail: userEmail.value,
+            userPassword: userPassword.value,
+            userNickname: userNickname.value
         };
-        
-        await postSignUpData(userData);
-    
+
+        formData.append(
+            "data",
+            new Blob([JSON.stringify(data)], { type: "application/json" })
+        );
+
         const profileImgInput = section.querySelector("#userProfileImg");
-    
         if (profileImgInput && profileImgInput.files.length > 0) {
-            const file = profileImgInput.files[0];
-            await uploadProfileImage(file);
+            formData.append("profileImage", profileImgInput.files[0]);
         }
+
+        postSignUpData(formData);
     
         setState("isLogin", "false");
     

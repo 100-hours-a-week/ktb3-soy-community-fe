@@ -1,10 +1,11 @@
 import {getState} from "../core/GlobalStore.js"
 export async function createComment(commentData, postId){
-    const userId = getState("userId");
-    const response = await fetch(`http://localhost:8080/api/posts/${postId}/comments?userId=${userId}`, {
+    const response = await fetch(`http://localhost:8080/api/posts/${postId}/comments`, {
         method: "POST", 
         headers: {
-            "Content-Type": "application/json"},
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
         body: JSON.stringify(commentData)
     });
 
@@ -20,7 +21,9 @@ export async function createComment(commentData, postId){
 
 export async function getComments(postId) {
   try {
-    const response = await fetch(`http://localhost:8080/api/posts/${postId}/comments`);
+    const response = await fetch(`http://localhost:8080/api/posts/${postId}/comments`, {
+        credentials: "include"
+    });
     if (!response.ok) console.log("댓글 조회 실패");
     return await response.json();
   } catch (err) {
@@ -28,10 +31,13 @@ export async function getComments(postId) {
   }
 }
 
-export async function deleteComments(postId, commentId, userId){
-  const deletePostUrl =  `http://localhost:8080/api/posts/${postId}/comments/${commentId}?userId=${userId}`;
+export async function deleteComments(postId, commentId){
+  const deletePostUrl =  `http://localhost:8080/api/posts/${postId}/comments/${commentId}`;
   try{
-      const response = await fetch(deletePostUrl, {method: "DELETE"});
+      const response = await fetch(deletePostUrl, {
+        method: "DELETE",
+        credentials: "include"
+    });
       if (!response.ok) console.log("댓글 삭제 실패");
       return true;
   } catch(error) {
@@ -41,16 +47,17 @@ export async function deleteComments(postId, commentId, userId){
 }
 
 export async function editComment(commentData, postId, commentId){
-  const userId = getState("userId");
-  const editCommentUrl = `http://localhost:8080/api/posts/${postId}/comments/${commentId}?userId=${userId}`;
+  const editCommentUrl = `http://localhost:8080/api/posts/${postId}/comments/${commentId}`;
 
   try{
     const response = await fetch(editCommentUrl, {
       method: "PATCH", 
       headers: {
-        "Header": "application/json",
-        "Content-Type": "application/json"},
-        body: JSON.stringify(commentData)});
+        "Content-Type": "application/json"
+    },
+        body: JSON.stringify(commentData),
+        credentials: "include"
+    });
 
     if (!response.ok) alert("댓글 수정 실패");
     const data = await response.json();

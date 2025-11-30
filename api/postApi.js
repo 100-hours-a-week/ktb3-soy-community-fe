@@ -1,13 +1,11 @@
 import { setState } from "../core/GlobalStore.js";
 
-export async function createPost(postData, userId){
+export async function createPost(formData){
     try{
-        const response = await fetch(`http://localhost:8080/api/posts?userId=${userId}`, {
+        const response = await fetch(`http://localhost:8080/api/posts`, {
                 method: "POST", 
-                headers: {
-                  "Header": "application/json",
-                  "Content-Type": "application/json"},
-                body: JSON.stringify(postData)
+                credentials: "include",
+                body: formData
             });
         
         if (!response.ok) alert("게시글 등록 실패");
@@ -24,7 +22,10 @@ export async function getPosts(currentPage, pageSize){
   const url = getPostsURL + `page=${currentPage}&size=${pageSize}`;
 
   try{
-    const response = await fetch(url);
+    const response = await fetch(url,{
+        method: "GET",
+        credentials: "include"
+    });
     if (!response.ok) console.log("게시글 목록 조회 실패");
     return await response.json();
   } catch{
@@ -32,10 +33,12 @@ export async function getPosts(currentPage, pageSize){
   }
 }
 
-export async function getPostDetail(postId, userId){
-  const getPostDetailUrl = `http://localhost:8080/api/posts/${postId}?userId=${userId}`;
+export async function getPostDetail(postId){
+  const getPostDetailUrl = `http://localhost:8080/api/posts/${postId}`;
   try{
-    const response = await fetch(getPostDetailUrl);
+    const response = await fetch(getPostDetailUrl
+        ,{credentials: "include"}
+    );
     if (!response.ok) console.log("게시글 상세 조회 실패");
     return await response.json();
   } catch{
@@ -43,15 +46,16 @@ export async function getPostDetail(postId, userId){
   }
 }
 
-export async function editPost(postData, postId, userId){
-  const editPostUrl = `http://localhost:8080/api/posts/${postId}?userId=${userId}`;
+export async function editPost(postData, postId){
+  const editPostUrl = `http://localhost:8080/api/posts/${postId}`;
 
   try{
       const response = await fetch(editPostUrl, {
                 method: "PATCH", 
+                credentials: "include",
                 headers: {
-                  "Header": "application/json",
-                  "Content-Type": "application/json"},
+                  "Content-Type": "application/json"
+                },
                 body: JSON.stringify(postData)});
 
       if (!response.ok){
@@ -66,10 +70,13 @@ export async function editPost(postData, postId, userId){
   }
 }
 
-export async function deletePost(postId, userId){
-  const deletePostUrl =  `http://localhost:8080/api/posts/${postId}?userId=${userId}`;
+export async function deletePost(postId){
+  const deletePostUrl =  `http://localhost:8080/api/posts/${postId}`;
   try{
-      const response = await fetch(deletePostUrl, {method: "DELETE"});
+      const response = await fetch(deletePostUrl, {
+        method: "DELETE",
+        credentials: "include"
+    });
       if (!response.ok) alert("게시글 삭제 실패");
       return true;
   } catch(error) {
@@ -78,31 +85,14 @@ export async function deletePost(postId, userId){
   }
 }
 
-export async function uploadImageFile(postId, file){
-  const formData = new FormData();
-  formData.append("file", file);
-
-  fetch(`http://localhost:8080/api/posts/${postId}/profile`, {
-    method: "POST",
-    body: formData
-  })
-    .then(res => {
-      if (!res.ok) throw new Error("이미지 업로드 실패");
-      return res.json();
-    })
-    .then(data => {
-      console.log("이미지 업데이트 완료:", data);
-      setState("userProfileImg", data.profileImgUrl);
-    })
-    .catch(err => console.error(err));
-}
 
 export async function postImageFile(postId, file){
   const formData = new FormData();
   formData.append("file", file);
 
-  return fetch(`http://localhost:8080/api/posts/${postId}`, {
+  return fetch(`http://localhost:8080/api/posts/${postId}/image`, {
     method: "POST",
+    credentials: "include",
     body: formData
   })
     .then(res => {
@@ -116,10 +106,11 @@ export async function postImageFile(postId, file){
 }
 
 
-export async function likePost(postId, userId){
+export async function likePost(postId){
     try{
-        const res = await fetch(`http://localhost:8080/api/posts/${postId}/likes?userId=${userId}`, {
-                                method: "POST"});
+        const res = await fetch(`http://localhost:8080/api/posts/${postId}/likes`, {
+            credentials: "include",                    
+            method: "POST"});
         const data = await res.json();
         if(!res.ok) {
             return {liked: false, likeCount: data.likeCount}}
@@ -131,8 +122,9 @@ export async function likePost(postId, userId){
 
 export async function dislikePost(postId, userId){
     try{
-        const res = await fetch(`http://localhost:8080/api/posts/${postId}/likes?userId=${userId}`, {
-                                method: "DELETE"});
+        const res = await fetch(`http://localhost:8080/api/posts/${postId}/likes`, {
+            credentials: "include",            
+            method: "DELETE"});
         const data = await res.json();
         if(!res.ok) {
             return {liked: false, likeCount: data.likeCount}}

@@ -7,8 +7,7 @@ class PostEventHandler{
     constructor(){}
 
     loadPostDetail(postId){
-        const userId = getState("userId");
-        return getPostDetail(postId, userId).then(data => data)
+        return getPostDetail(postId).then(data => data)
         .catch(error => {
             console.error(error)
         });
@@ -28,10 +27,8 @@ class PostEventHandler{
             () => modal.remove()
         );
 
-        const userId = getState("userId");
-
         btnConfirm.addEventListener("click", async () => {
-            await deletePost(postId, userId);
+            await deletePost(postId);
             modal.remove();
             navigateTo("/posts");
         })
@@ -44,9 +41,8 @@ class PostEventHandler{
         const postImgFile = document.querySelector("#post-img");
 
         const newPost = {"postContent": postBody};
-        const userId = getState("userId");
 
-        await editPost(newPost, postId, userId);
+        await editPost(newPost, postId);
         
         if (postImgFile.files.length > 0){
             const file = postImgFile.files[0];
@@ -62,14 +58,14 @@ class PostEventHandler{
         const likeStats = document.querySelector(".postStatsLike");
         
         let res;
-        const userId = getState("userId");
+
         if (btn.classList.contains("liked")){
             btn.classList.remove("liked");
-            res = await dislikePost(postId, userId);
+            res = await dislikePost(postId);
             likeStats.textContent = `좋아요 ${res.likeCount}`;
         } else {
             btn.classList.add("liked");
-            res = await likePost(postId, userId);
+            res = await likePost(postId);
             likeStats.textContent = `좋아요 ${res.likeCount}`;
         }
     

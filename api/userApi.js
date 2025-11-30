@@ -1,21 +1,34 @@
 import {getState, setState} from "../core/GlobalStore.js"
 
-export async function loginUser(userData) {
-  return await fetch("http://localhost:8080/api/users/auth", {
-    method: "POST",
-    headers: { 
-        "Accept": "application/json",
-        "Content-Type": "application/json" },
-    body: JSON.stringify(userData),
-  });
+export async function loginUser(inputData) {
+    const res = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        credentials: "include",
+        headers: { 
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(inputData)
+    });
+    return res;
 }
 
-export async function postSignUpData(userData){
+export async function logout() {
+    const res = await fetch("http://localhost:8080/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+        headers: { 
+            "Content-Type": "application/json"
+        }
+    });
+    return res;
+}
+
+export async function postSignUpData(signUpData){
     try{
         const res = await fetch("http://localhost:8080/api/users", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData)
+        credentials: "include",
+        body: signUpData
     });
     const data = await res.json();
     setState("userId", data.data.userId);
@@ -29,9 +42,9 @@ export async function postSignUpData(userData){
 export async function uploadProfileImage(file){
   const formData = new FormData();
   formData.append("file", file);
-  const userId = getState("userId");
-  return fetch(`http://localhost:8080/api/users/${userId}/profile`, {
+  return fetch(`http://localhost:8080/api/users/me/profile-image`, {
       method: "POST",
+      credentials: "include",
       body: formData
     })
     .then(res => {
@@ -45,13 +58,13 @@ export async function uploadProfileImage(file){
 }
 
 export async function uploadNickname(nickname){
-    const userId = getState("userId");
     const postData = {
         "userNickname": nickname
     };
     
-    return fetch(`http://localhost:8080/api/users/${userId}/profile`, {
+    return fetch(`http://localhost:8080/api/users/me/profile`, {
             method: "PATCH",
+            credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(postData)
         }).then(res => {
@@ -62,10 +75,11 @@ export async function uploadNickname(nickname){
         }).catch(err => console.error(err));
 }
 
-export async function deleteUser(userId){
+export async function deleteUser(){
     try{
-        const res = await fetch(`http://localhost:8080/api/users/${userId}`, {
+        const res = await fetch(`http://localhost:8080/api/users`, {
             method: "Delete",
+            credentials: "include",
             headers: { "Content-Type": "application/json" },
         }); 
         if (res.ok){
@@ -85,8 +99,9 @@ export async function patchNewPassword(userId, userOldPassword, userNewPassword)
                 "userNewPassword": userNewPassword.value
         };
         console.log(data);
-        const res = await fetch(`http://localhost:8080/api/users/${userId}/password`,{
+        const res = await fetch(`http://localhost:8080/api/users/me/password`,{
             method: "PATCH",
+            credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         });
