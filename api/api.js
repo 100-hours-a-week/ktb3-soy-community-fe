@@ -1,6 +1,6 @@
 const url = "http://localhost:8080";
 
-export async function doFetch({path, methodType, headerData = {}, bodyData}){
+export async function apiFetch({path, methodType, headerData = {}, bodyData}){
     let body = bodyData;
     const headers = {...headerData};
 

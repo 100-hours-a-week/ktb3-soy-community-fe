@@ -1,7 +1,7 @@
 import { getState, clearStore } from "../../core/GlobalStore.js";
 import { navigateTo } from "../../core/Router.js";
 import { Dropdown } from "../Dropdown/Dropdown.js";
-import {logout} from "../../api/userApi.js";
+import {attachLogoutSubmit} from "../../handle/users/UserEventHandler.js";
 
 export function HeaderDropdown(){
     return Dropdown({
@@ -21,7 +21,7 @@ export function HeaderDropdown(){
             editPassword: () => navigateTo("/edit-password"),
             logout: () => {
                 clearStore();
-                logout();
+                attachLogoutSubmit();
                 navigateTo("/")
             }, 
             manageMember:  () => {

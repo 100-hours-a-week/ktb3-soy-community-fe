@@ -1,6 +1,4 @@
 import { 
-    loginUser, 
-    postSignUpData, 
     uploadNickname,
     uploadProfileImage,
     patchNewPassword,
@@ -17,44 +15,45 @@ import {
 
 import {Modal} from "../../components/Modal/Modal.js";
 import { showToast } from "../../components/toast/Toast.js";
-import { doFetch } from "../../api/api.js";
+import { apiFetch } from "../../api/api.js";
 
 class UserEventHandler{
     constructor(){}
 
     async attachLoginSubmit(email, password, helperText){
-        const userData = {
-            userEmail: email.value,
-            userPassword: password.value
+
+        const inputData = {
+            email: email.value,
+            password: password.value
         };
 
-        try {
-            const response = await loginUser({
-                email: email.value,
-                password: password.value
-            });
+        const response = await apiFetch({
+            path: "/api/auth/login",
+            methodType: "POST", 
+            bodyData: inputData
+        });
 
-            if (!response.ok) {
-                helperText.textContent = "아이디 또는 비밀번호를 확인해주세요.";
-                helperText.className = "helper-text invalid";
-                return;
-            }
-
-            const data = await response.json();
-            console.log(data);
-            setState("userId", data.userId);
-            setState("userProfileImg", data.userProfileImgUrl);
-            setState("userEmail", email.value);
-            setState("userNickname", data.userNickname);
-            setState("isLogin", "true");
-            setState("userRole", data.role);
-            
-            navigateTo("/posts");
-            
-
-        } catch (err) {
-            console.log("로그인 실패:", err);
+        if (!response.success) {
+            helperText.textContent = "아이디 또는 비밀번호를 확인해주세요.";
+            helperText.className = "helper-text invalid";
+            return;
         }
+
+        setState("userId", response.data.userId);
+        setState("userProfileImg", response.data.userProfileImgUrl);
+        setState("userEmail", email.value);
+        setState("userNickname", response.data.userNickname);
+        setState("isLogin", "true");
+        setState("userRole", response.data.role);
+        navigateTo("/posts");
+        
+    }
+
+    async attachLogoutSubmit(){
+        await apiFetch({
+            path: "/api/auth/logout",
+            methodType: "POST"
+        });
     }
 
     attachSignUpEvents(section){
@@ -165,7 +164,7 @@ class UserEventHandler{
             formData.append("profileImage", profileImgInput.files[0]);
         }
 
-        const data = await doFetch({
+        const data = await apiFetch({
             path: "/api/users",
             methodType: "POST",
             bodyData: formData
@@ -313,3 +312,4 @@ export const attachSignUpEvents = userEventHandler.attachSignUpEvents.bind(userE
 export const attachEditPassword = userEventHandler.attachEditPassword.bind(userEventHandler);
 export const attachUserEditProfile = userEventHandler.attachUserEditProfile.bind(userEventHandler);
 export const handleUserDelete = userEventHandler.handleUserDelete.bind(userEventHandler);
+export const attachLogoutSubmit = userEventHandler.attachLogoutSubmit.bind(userEventHandler);
