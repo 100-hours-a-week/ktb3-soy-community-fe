@@ -1,0 +1,17 @@
+.page-container {
+  min-height: 100vh;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-page__content {
+  width: 100%;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  padding: 16px;
+}

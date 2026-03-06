@@ -1,63 +1,80 @@
-import { LoginPage } from "../pages/LoginPage.js";
-import { SignUpPage } from "../pages/SignUpPage.js";
-import {EditProfilePage} from "../pages/EditProfilePage.js";
-import {EditPasswordPage} from "../pages/EditPasswordPage.js";
-import { PostDetailPage } from "../pages/PostDetailPage.js";
-import { PostListPage } from "../pages/PostListPage.js";
-import { PostCreatePage } from "../pages/PostCreatePage.js";
-import {PostEditPage} from "../pages/PostEditPage.js";
-import {ManageMemberPage} from "../pages/ManageMemberPage.js";
-import {mount} from "./Renderer.js";
+import { globalFiberState } from "./fiber/globalFiberState.js";
 
-class Router{
+export class Router{
     constructor(){
-        this.pathPageMap = {
-            "/": LoginPage,
-            "/signup": SignUpPage, 
-            "/posts": PostListPage,
-            "/posts/create": PostCreatePage,
-            "/posts/:param1": PostDetailPage,
-            "/posts/:param1/edit": PostEditPage,
-            "/edit-profile": EditProfilePage,
-            "/edit-password": EditPasswordPage,
-            "/admin/members": ManageMemberPage
-        };
+        this.routes = [];
+        this.container = document.getElementById("root");
+        this.currentPath = window.location.pathname;
+        this.params = {};
+        this._onChanged = null; 
+        window.addEventListener("popstate", this._handlePopState.bind(this));
     }
 
-    toParamPath(path) {
-        if (path === "/") return { pattern: "/", params: [] };
-        let letters = path.split("/");
-        let paramNum = 1;
-        const params = [];
-
-        for (let i = 0; i < letters.length; i ++){
-            const letter = letters[i];
-            if (/^\d+$/.test(letter)){
-                params.push(letter);
-                letters[i] = `:param${paramNum}`;
-            paramNum++;}
-        }
-        const pattern = letters.join("/");
-        return {pattern, params};
+    add(param, page){
+        this.routes.push({ path: param, page });
+        return this;
     }
 
-    renderCurrent(){
+    start(callback){
+        this._onChanged = callback;
+        this._render();
+    }
+
+    navigate(path){
+        if (this.currentPath === path) return;
+
+        window.history.pushState(null, "", path);
+        this.currentPath = path;
+        this._render();
+    }
+
+    _render(){
         const path = window.location.pathname;
-        const { pattern, params } = this.toParamPath(path);
-
-        const pageFunc = this.pathPageMap[pattern];
-        if (!pageFunc) return;
-
-        const page = params ? pageFunc(params) : pageFunc();
-        mount(page);
+        const match = this._matchRoute(path);
+        const page = match?.page || this.routes.find(r => r.path === "*")?.page;
+        this.params = match?.params || {}; 
+        
+        if(this._onChanged && page){
+            this._onChanged(page, this.params);
+        }
     }
-    
-    navigateTo(url) {
-        window.history.pushState(null, null, url);
-        this.renderCurrent();
+
+    _handlePopState(){
+        this.currentPath = window.location.pathname;
+        this._render();
+    }
+
+    _matchRoute(path){
+        // 1. 정적 라우트 
+        for (const route of this.routes){
+            if (!route.path.includes("{") && route.path === path){
+                return {page: route.page, params: {}};
+            }
+        }
+        // 2. 동적 라우트
+        for (const route of this.routes){
+            if (!route.path.includes("{")) continue;
+
+            const paramNames = []; 
+            const regexPath = route.path.replace(/{([^}]+)}/g, (_, name) => {
+                paramNames.push(name);
+                return "([^/]+)";
+            });
+
+            const regex = new RegExp(`^${regexPath}$`);
+            const match = path.match(regex);
+            if (!match) continue;
+
+            const params = {};
+            paramNames.forEach((name, idx) => {
+                params[name] = match[idx + 1];
+            });
+            return { page: route.page, params};
+        }
+
+        return null;
     }
 }
 
+
 export const router = new Router();
-export const navigateTo = router.navigateTo.bind(router);
-window.addEventListener("popstate", () => router.renderCurrent());

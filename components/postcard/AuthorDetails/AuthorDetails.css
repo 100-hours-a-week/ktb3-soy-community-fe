@@ -1,0 +1,19 @@
+.author-details {
+    display: flex;
+    flex-direction: column; /* 이미지 위 / 닉네임 아래 */
+    align-items: center;
+    gap: 6px;
+}
+
+.author-details img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.authorDetails .nickname {
+    font-size: 14px;
+    font-weight: 600;
+    color: #595959;
+}
