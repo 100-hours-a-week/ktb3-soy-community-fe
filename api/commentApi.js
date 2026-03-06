@@ -1,62 +1,32 @@
 import {getState} from "../core/GlobalStore.js"
-export async function createComment(commentData, postId){
-    const userId = getState("userId");
-    const response = await fetch(`http://localhost:8080/api/posts/${postId}/comments?userId=${userId}`, {
-        method: "POST", 
-        headers: {
-            "Content-Type": "application/json"},
-        body: JSON.stringify(commentData)
-    });
-
-    if (!response.ok) {
-        console.log("댓글 등록 실패");
-        return {state: "fail"};
-    }
-
-    const data = await response.json();
-    data.state = "success";
-    return data;
-}
+import { apiFetch } from "./api.js";
 
 export async function getComments(postId) {
-  try {
-    const response = await fetch(`http://localhost:8080/api/posts/${postId}/comments`);
-    if (!response.ok) console.log("댓글 조회 실패");
-    return await response.json();
-  } catch (err) {
-    console.error("댓글 조회 중 오류 발생:", err);
-  }
+    return await apiFetch({
+        path: `/api/posts/${postId}/comments`,
+        methodType: "GET"
+    });
 }
 
-export async function deleteComments(postId, commentId, userId){
-  const deletePostUrl =  `http://localhost:8080/api/posts/${postId}/comments/${commentId}?userId=${userId}`;
-  try{
-      const response = await fetch(deletePostUrl, {method: "DELETE"});
-      if (!response.ok) console.log("댓글 삭제 실패");
-      return true;
-  } catch(error) {
-    console.log("댓글 삭제 에러" + error);
-    return false
-  }
+export async function createComment(inputData, postId){
+    return await apiFetch({
+        path: `/api/posts/${postId}/comments`,
+        methodType: "POST",
+        bodyData: inputData
+    });
 }
 
-export async function editComment(commentData, postId, commentId){
-  const userId = getState("userId");
-  const editCommentUrl = `http://localhost:8080/api/posts/${postId}/comments/${commentId}?userId=${userId}`;
+export async function editComment(inputData, postId, commentId){
+    return await apiFetch({
+        path: `/api/posts/${postId}/comments/${commentId}`,
+        methodType: "PATCH", 
+        bodyData: inputData
+    });
+}
 
-  try{
-    const response = await fetch(editCommentUrl, {
-      method: "PATCH", 
-      headers: {
-        "Header": "application/json",
-        "Content-Type": "application/json"},
-        body: JSON.stringify(commentData)});
-
-    if (!response.ok) alert("댓글 수정 실패");
-    const data = await response.json();
-    return true;
-  } catch(error) {
-    console.log("댓글 수정 에러" + error);
-    return false
-  }
+export async function deleteComments(postId, commentId){
+    return await apiFetch({
+        path: `/api/posts/${postId}/comments/${commentId}`,
+        methodType: "DELETE"
+    })
 }

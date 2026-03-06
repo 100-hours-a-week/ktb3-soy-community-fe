@@ -9,13 +9,14 @@ import { Modal } from "../../components/Modal/Modal.js"
 class CommentEventHandler{
     constructor(){}
 
-    loadCommentList(postId){
+    async loadCommentList(postId){
         const commentItemList = document.querySelector("#commentList");
-        getComments(postId).then(commentList => {
-            commentList.forEach(comment => {
-                const commentItem = createDom(CommentItem(postId, comment));
-                commentItemList.appendChild(commentItem);
-        });
+        const response = await getComments(postId);
+        if (!response.success) return; 
+        const commentList = response.data;
+        commentList.forEach(comment => {
+            const commentItem = createDom(CommentItem(postId, comment));
+            commentItemList.appendChild(commentItem);
         });
     }
 
@@ -24,17 +25,15 @@ class CommentEventHandler{
         const commentItemList = document.querySelector("#commentList");
         
         const commentContent = commentTextArea.value; 
-        console.log(commentItemList, commentContent); 
         const commentData = {"commentContent": commentContent};
-        const res = await createComment(commentData, postId);
-        console.log(res);
-        if (res.state){
-            const newCommentItem = CommentItem(postId, res);
-            const newCommentItemDom = createDom(newCommentItem);
-            commentItemList.appendChild(newCommentItemDom);
-            document.querySelector("#commentContent").value = "";
-        }
-        return res;
+        const response = await createComment(commentData, postId);
+        if (!response.success) return;
+
+        const isCreated = true;
+        const newCommentItem = CommentItem(postId, response.data, isCreated);
+        const newCommentItemDom = createDom(newCommentItem);
+        commentItemList.appendChild(newCommentItemDom);
+        document.querySelector("#commentContent").value = "";
     }
 
     async handleCommentDelete(postId, commentId){
@@ -51,11 +50,9 @@ class CommentEventHandler{
         btnCancel.addEventListener("click", 
             () => modal.remove()
         );
-    
-        const userId = getState("userId");
-    
+
         btnConfirm.addEventListener("click", async () => {
-            await deleteComments(postId, commentId, userId);
+            await deleteComments(postId, commentId);
             modal.remove();
             navigateTo(`/posts/${postId}`);
         })
@@ -95,18 +92,19 @@ class CommentEventHandler{
                     newCommentContent: textarea.value
                 };
         
-                const res = await editComment(newCommentData, postId, commentId);
-                if (res){
-                    item.querySelector(".body").textContent = textarea.value;
-        
-                    /*댓글 작성 모드로 바꾸기*/
-                    textarea.value = "";
-                    btn.textContent = "댓글 작성";
-                    
-                    btn.removeEventListener("click", activeHandler);
-                    activeHandler = createEventHandler;
-                    btn.addEventListener("click", activeHandler);
-                }
+                const response = await editComment(newCommentData, postId, commentId);
+                if (!response.success) return; 
+
+                item.querySelector(".body").textContent = textarea.value;
+    
+                /*댓글 작성 모드로 바꾸기*/
+                textarea.value = "";
+                btn.textContent = "댓글 작성";
+                
+                btn.removeEventListener("click", activeHandler);
+                activeHandler = createEventHandler;
+                btn.addEventListener("click", activeHandler);
+
             };
 
             activeHandler = editEventHandler;

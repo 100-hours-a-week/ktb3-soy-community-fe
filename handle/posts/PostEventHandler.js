@@ -1,17 +1,14 @@
 import { Modal } from "../../components/Modal/Modal.js";
 import { navigateTo } from "../../core/Router.js";
 import { getState } from "../../core/GlobalStore.js";
-import {getPostDetail, deletePost, editPost, postImageFile, likePost, dislikePost} from "../../api/postApi.js"
+import {getPostDetail, deletePost, editPost, uploadImageToPost, likePost, dislikePost} from "../../api/postApi.js"
 
 class PostEventHandler{
     constructor(){}
 
-    loadPostDetail(postId){
-        const userId = getState("userId");
-        return getPostDetail(postId, userId).then(data => data)
-        .catch(error => {
-            console.error(error)
-        });
+    async loadPostDetail(postId){
+        const response = await getPostDetail(postId);
+        return response.data;
     }
 
     handlePostDelete(postId) {
@@ -28,10 +25,8 @@ class PostEventHandler{
             () => modal.remove()
         );
 
-        const userId = getState("userId");
-
         btnConfirm.addEventListener("click", async () => {
-            await deletePost(postId, userId);
+            await deletePost(postId);
             modal.remove();
             navigateTo("/posts");
         })
@@ -43,14 +38,15 @@ class PostEventHandler{
         const postBody = document.querySelector("#post-body").value;
         const postImgFile = document.querySelector("#post-img");
 
-        const newPost = {"postContent": postBody};
-        const userId = getState("userId");
+        const newPostData = {"postContent": postBody};
 
-        await editPost(newPost, postId, userId);
+        await editPost(newPostData, postId);
         
         if (postImgFile.files.length > 0){
             const file = postImgFile.files[0];
-            await postImageFile(postId, file);
+            const inputData = new FormData();
+            inputData.append("file", file);
+            await uploadImageToPost(inputData, postId);
             navigateTo(`/posts/${postId}`);
         } else {
             navigateTo(`/posts/${postId}`);
@@ -61,18 +57,20 @@ class PostEventHandler{
         const btn = document.querySelector(".likeButton");
         const likeStats = document.querySelector(".postStatsLike");
         
-        let res;
-        const userId = getState("userId");
+        let response;
+
         if (btn.classList.contains("liked")){
             btn.classList.remove("liked");
-            res = await dislikePost(postId, userId);
-            likeStats.textContent = `좋아요 ${res.likeCount}`;
+            response = await dislikePost(postId);
         } else {
             btn.classList.add("liked");
-            res = await likePost(postId, userId);
-            likeStats.textContent = `좋아요 ${res.likeCount}`;
+            response = await likePost(postId);
         }
-    
+        if (response.success){
+            const likeCount = response.data.likeCount;
+            likeStats.textContent = `좋아요 ${likeCount}`;
+        }
+
     }
 
 }

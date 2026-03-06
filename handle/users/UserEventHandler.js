@@ -1,10 +1,11 @@
 import { 
-    loginUser, 
-    postSignUpData, 
-    uploadNickname,
-    uploadProfileImage,
-    patchNewPassword,
-    deleteUser
+    login,
+    logout,
+    signUp,
+    editNickname,
+    editProfileImage,
+    deleteUser,
+    editPassword,
 } from "../../api/userApi.js";
 import { navigateTo } from "../../core/Router.js";
 import {setState, getState, clearStore} from '../../core/GlobalStore.js';
@@ -22,33 +23,32 @@ class UserEventHandler{
     constructor(){}
 
     async attachLoginSubmit(email, password, helperText){
-        const userData = {
-            userEmail: email.value,
-            userPassword: password.value
+
+        const inputData = {
+            email: email.value,
+            password: password.value
         };
 
-        try {
-            const response = await loginUser(userData);
+        const response = await login(inputData);
 
-            if (!response.ok) {
-                helperText.textContent = "아이디 또는 비밀번호를 확인해주세요.";
-                helperText.className = "helper-text invalid";
-                return;
-            }
-
-            const data = await response.json();
-            setState("userId", data.data.userId);
-            setState("userProfileImg", data.data.userProfileImgUrl);
-            setState("userEmail", email.value);
-            setState("userNickname", data.data.userNickname);
-            setState("isLogin", "true");
-            
-            navigateTo("/posts");
-            
-
-        } catch (err) {
-            console.log("로그인 실패:", err);
+        if (!response.success) {
+            helperText.textContent = "아이디 또는 비밀번호를 확인해주세요.";
+            helperText.className = "helper-text invalid";
+            return;
         }
+
+        setState("userId", response.data.userId);
+        setState("userProfileImg", response.data.userProfileImgUrl);
+        setState("userEmail", email.value);
+        setState("userNickname", response.data.userNickname);
+        setState("isLogin", "true");
+        setState("userRole", response.data.role);
+        navigateTo("/posts");
+        
+    }
+
+    async attachLogoutSubmit(){
+        await logout();
     }
 
     attachSignUpEvents(section){
@@ -117,6 +117,33 @@ class UserEventHandler{
         });
     }
 
+    async handleSignUpSubmit(section, userEmail, userPassword, userPasswordCheck, userNickname){
+        const formData = new FormData();
+
+        const userData = {
+            userEmail: userEmail.value,
+            userPassword: userPassword.value,
+            userNickname: userNickname.value
+        };
+
+        formData.append(
+            "data",
+            new Blob([JSON.stringify(userData)], { type: "application/json" })
+        );
+
+        const profileImgInput = section.querySelector("#userProfileImg");
+        if (profileImgInput && profileImgInput.files.length > 0) {
+            formData.append("profileImage", profileImgInput.files[0]);
+        }
+
+        const response = await signUp(formData);
+
+        if (response.success){
+            setState("userId", response.data.userId);
+            setState("isLogin", "false");
+        }
+    }
+
     convertFileToDataURL(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -139,30 +166,6 @@ class UserEventHandler{
         return imageUrl;
     };
 
-
-    async handleSignUpSubmit(section, userEmail, userPassword, userPasswordCheck, userNickname){
-        const email = userEmail.value;
-        const password = userPassword.value;
-        const nickname = userNickname.value;
-        const userData = {
-            userEmail: email,
-            userPassword: password,
-            userNickname: nickname
-        };
-        
-        await postSignUpData(userData);
-    
-        const profileImgInput = section.querySelector("#userProfileImg");
-    
-        if (profileImgInput && profileImgInput.files.length > 0) {
-            const file = profileImgInput.files[0];
-            await uploadProfileImage(file);
-        }
-    
-        setState("isLogin", "false");
-    
-    }
-
     attachUserEditProfile(section){
         const newUserProfileImgInput = section.querySelector("#userProfileImg");
         const newUserProfileImgInputPreview = section.querySelector("#userProfileImgPreview");
@@ -175,19 +178,24 @@ class UserEventHandler{
     
         async function handleEditUserProfile(newUserImgInput, newUserNickname, helperText){
             const nickname = newUserNickname.value;
-            console.log(nickname);
             let isEdited = false;
             if (nickname.length > 0){
                 if (!isValidNicknameForSignUp(helperText, nickname)){
                     return false;
                 }
-                isEdited = await uploadNickname(nickname);
+
+                const inputData = {"userNickname": nickname};
+                const response = await editNickname(inputData);
+                isEdited = response.success;
                 setState("userNickname", nickname);
             }
 
             if (newUserImgInput && newUserImgInput.files.length > 0) {
                 const file = newUserImgInput.files[0];
-                isEdited = await uploadProfileImage(file);
+                const inputData = new FormData();
+                inputData.append("file", file);
+                const response = await editProfileImage(inputData);
+                isEdited = response.success;
                 setState("userProfileImg", newImageUrl);
             }
             return isEdited;
@@ -214,30 +222,14 @@ class UserEventHandler{
             () => this.handleUserDelete(titleMsg, contentMsg, getState("userId")));
     
     }
-
-    handleUserDelete(titleMsg, contentMsg, userId){
-        Modal(titleMsg, contentMsg);
-    
-        const modal = document.getElementById("modal-delete");
-    
-        const btnConfirm = modal.querySelector("#btn-confirm");
-        const btnCancel = modal.querySelector("#btn-cancel");
-    
-        btnCancel.addEventListener("click", 
-            () => modal.remove()
-        );
-    
-        btnConfirm.addEventListener("click", () => {
-            deleteUser(userId);
-            modal.remove();
-            navigateTo("/");
-            clearStore();
-        })
-    }
     
     async handleEditPassword(userOldPassword, userNewPassword){
-        const userId = getState("userId");
-        await patchNewPassword(userId, userOldPassword, userNewPassword);
+        const inputData = {
+            "userOldPassword": userOldPassword.value, 
+            "userNewPassword": userNewPassword.value
+        };
+
+        await editPassword(inputData);
     }
     
     async attachEditPassword(section){
@@ -291,6 +283,26 @@ class UserEventHandler{
         );
     }
 
+    handleUserDelete(titleMsg, contentMsg, userId){
+        Modal(titleMsg, contentMsg);
+    
+        const modal = document.getElementById("modal-delete");
+    
+        const btnConfirm = modal.querySelector("#btn-confirm");
+        const btnCancel = modal.querySelector("#btn-cancel");
+    
+        btnCancel.addEventListener("click", 
+            () => modal.remove()
+        );
+    
+        btnConfirm.addEventListener("click", async () => {
+            await deleteUser(userId);
+            modal.remove();
+            navigateTo("/");
+            clearStore();
+        })
+    }
+
 }
 
 export const userEventHandler = new UserEventHandler();
@@ -299,3 +311,4 @@ export const attachSignUpEvents = userEventHandler.attachSignUpEvents.bind(userE
 export const attachEditPassword = userEventHandler.attachEditPassword.bind(userEventHandler);
 export const attachUserEditProfile = userEventHandler.attachUserEditProfile.bind(userEventHandler);
 export const handleUserDelete = userEventHandler.handleUserDelete.bind(userEventHandler);
+export const attachLogoutSubmit = userEventHandler.attachLogoutSubmit.bind(userEventHandler);
